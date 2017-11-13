@@ -1,5 +1,5 @@
 Puppet::Type.type(:pingdom_check).provide(:dns, :parent => :check_base) do
-    has_features :api_2_0, :expectedip, :nameserver
+    has_features :expectedip, :nameserver
 
     def expectedip
         begin

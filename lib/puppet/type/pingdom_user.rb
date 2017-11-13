@@ -42,15 +42,19 @@ Puppet::Type.newtype(:pingdom_user) do
     # common properties
     #
     newproperty(:email) do
-        desc 'User email [String].'
+        desc %q(List of email targets [List of Strings])
     end
 
-    newproperty(:sms) do
-        desc %q(List of SMS targets [List of Strings])
+    newproperty(:number) do
+        desc 'User cellphone [String].'
     end
 
     newproperty(:paused) do
         desc %q(Don't send alerts to this user [Boolean])
         newvalues(:true, :false)
+    end
+
+    newproperty(:sms, :array_matching=>:all) do
+        desc %q(List of SMS targets [List of Strings])
     end
 end

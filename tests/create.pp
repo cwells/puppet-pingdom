@@ -18,7 +18,7 @@ Pingdom_check {
     paused           => true,
     ipv6             => false,
     resolution       => 30,
-    autofilter       => true
+    logging          => 'INFO'
 }
 
 pingdom_check { "http://${facts['fqdn']}/check":

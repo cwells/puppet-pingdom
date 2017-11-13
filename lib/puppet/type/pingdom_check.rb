@@ -30,9 +30,9 @@ Puppet::Type.newtype(:pingdom_check) do
     end
 
     newparam(:autofilter) do
-        desc 'Automatically tag and filter checks [boolean]'
+        desc 'Automatically tag and filter checks [boolean (default true)].'
         newvalues(:true, :false)
-        defaultto :false
+        defaultto :true
 
         validate do |value|
             if !@resource[:filter_tags].nil?

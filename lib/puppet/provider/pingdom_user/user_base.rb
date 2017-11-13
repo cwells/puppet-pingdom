@@ -17,7 +17,7 @@ begin # require PuppetX module
     require File.expand_path( # yes, this is the recommended way :P
         File.join(
             File.dirname(__FILE__), '..', '..', '..',
-            'puppet_x', 'pingdom', 'client-2.0.rb'
+            'puppet_x', 'pingdom', 'client-2.1.rb'
         )
     )
     has_pingdom_api = true
@@ -25,7 +25,7 @@ rescue => exception
     has_pingdom_api = false
 end
 
-Puppet::Type.type(:pingdom_contact).provide(:contact_base) do
+Puppet::Type.type(:pingdom_user).provide(:user_base) do
     confine :true => has_pingdom_api
 
     def api

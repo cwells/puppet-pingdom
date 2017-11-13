@@ -17,8 +17,12 @@ Puppet::Type.newtype(:pingdom_check) do
         desc 'The name of the check.'
     end
 
-    newparam(:username) do
-        desc 'API username [string].'
+    newparam(:account_email) do
+        desc 'Account email [string].'
+    end
+
+    newparam(:user_email) do
+        desc 'User email [string].'
     end
 
     newparam(:password) do
@@ -49,7 +53,7 @@ Puppet::Type.newtype(:pingdom_check) do
         desc 'List of tags to restrict actions to [list of strings]'
         defaultto []
 
-        # validate do |value| # FIXME
+        # validate do |value| # FIXME, false positive
         #     if @resource[:autofilter] == :true and !value.empty?
         #         raise 'filter_tags and autofilter are mutually exclusive.'
         #     end

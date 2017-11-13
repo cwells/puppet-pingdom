@@ -20,7 +20,7 @@ class PuppetX::Pingdom::Client
         :users   => "#{@@api_base}/users"
     }
 
-    def initialize(username, password, appkey, logging=nil)
+    def initialize(account_email, user_email, password, appkey, logging=nil)
         @api = if logging.nil?
             Faraday.new(:url => @@api_host)
         else
@@ -34,8 +34,9 @@ class PuppetX::Pingdom::Client
                 faraday.adapter Faraday.default_adapter
             end
         end
-        @api.basic_auth(username, password)
+        @api.basic_auth(user_email, password)
         @api.headers['App-Key'] = appkey
+        @api.headers['Account-Email'] = account_email
     end
 
     #

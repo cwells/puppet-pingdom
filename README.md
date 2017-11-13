@@ -33,7 +33,6 @@ Pingdom_check {
     appkey        => $pingdom_appkey,
     probe_filters => ['NA'],
     contacts      => ['DevOps', 'DevOps Pager'],
-    autotags      => true,
     paused        => true
 }
 ```
@@ -103,7 +102,7 @@ See instructions on [PuppetForge](https://forge.puppet.com/cwells/pingdom/readme
 ---
 
 #### Attention
-This release introduces a new feature `autofilter` [default: `false`]. Be aware that this feature will automatically tag the check with a shortened SHA1 hash of the check's `name` property, and automatically set `filter_tags` to include this tag. This allows us to efficiently locate this check in the future. However, if you have existing checks, enabling `autofilter` will cause them to no longer be found (since they lack the requisite SHA1 tag in `filter_tags`). You can add the tag yourself to existing resources with code similar to this:
+This release introduces a new feature `autofilter` [default: `true`]. Be aware that this feature will automatically tag the check with a shortened SHA1 hash of the check's `name` property, and automatically set `filter_tags` to include this tag. This allows us to efficiently locate this check in the future. However, if you have existing checks, enabling `autofilter` will cause them to no longer be found (since they lack the requisite SHA1 tag in `filter_tags`).
 
 ```puppet
 Pingdom_check {
@@ -122,13 +121,11 @@ More simply, delete the existing checks and allow Puppet to recreate them with t
 
 Finally, if you don't want or need this feature (trust me, you do), then just disable it with `autofilter => false`.
 
-The default will change to `true` in a future release (most likely concurrent with API 2.1 support).
-
 ---
 
 #### Known issues
 - `puppet resource pingdom_check` command will likely never work, since `self.instances` is a class method and doesn't have access to instantiation-time parameters such as credentials.
-- BeepManager API isn't currently manageable. That's an API 2.1 feature and 2.1 isn't publicly available yet. This means only legacy notifications are supported. Sucks, but the silver lining is that you don't _have_ to manage notifications with Puppet. Unless otherwise specified, BeepManager is the default, so you can simply skip controlling this aspect with Puppet and let the defaults handle the situation.
+- BeepManager API isn't currently manageable. That's an API 2.1 feature and 2.1 support is under development. This means only legacy notifications are supported. Sucks, but the silver lining is that you don't _have_ to manage notifications with Puppet. Unless otherwise specified, BeepManager is the default, so you can simply skip controlling this aspect with Puppet and let the defaults handle the situation.
 
 [pingdom_check_properties]: https://github.com/cwells/puppet-pingdom/wiki/Check-properties
 [pingdom_contact_properties]: https://github.com/cwells/puppet-pingdom/wiki/Contact-properties

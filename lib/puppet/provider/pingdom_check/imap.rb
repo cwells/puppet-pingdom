@@ -1,5 +1,5 @@
 Puppet::Type.type(:pingdom_check).provide(:imap, :parent => :check_base) do
-    has_features :encryption, :port, :stringtoexpect
+    has_features :api_2_0, :encryption, :port, :stringtoexpect
 
     def encryption
         begin

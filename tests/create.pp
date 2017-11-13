@@ -13,40 +13,12 @@
 # At this point, from the top-level directory, you can run:
 #     `export RUBYLIB=$PWD/lib ; puppet apply tests/create.pp`
 
-Pingdom_contact {
-    credentials_file   => '~/.pingdom_credentials',
-    countrycode        => '1',
-    countryiso         => 'US',
-    defaultsmsprovider => 'esendex',
-    directtwitter      => true,
-    twitteruser        => 'kimjongil'
-}
-
 Pingdom_check {
-    credentials_file         => '~/.pingdom_credentials',
-    paused                   => true,
-    ipv6                     => false,
-    notifyagainevery         => 0,
-    notifywhenbackup         => false,
-    resolution               => 30,
-    sendnotificationwhendown => 3,
-    contacts                 => [
-        'DevOps',
-        'DevOps Pager'
-    ],
-    autofilter               => true
-}
-
-pingdom_contact { 'DevOps':
-    ensure    => present,
-    email     => 'devops@company.com',
-    cellphone => '555-222-4444'
-}
-
-pingdom_contact { 'DevOps Pager':
-    ensure    => present,
-    email     => 'devops-pager@company.com',
-    cellphone => '555-222-3333'
+    credentials_file => '~/.pingdom_credentials',
+    paused           => true,
+    ipv6             => false,
+    resolution       => 30,
+    autofilter       => true
 }
 
 pingdom_check { "http://${facts['fqdn']}/check":
@@ -90,7 +62,6 @@ pingdom_check { "dns://${facts['fqdn']}":
     host             => $facts['fqdn'],
     expectedip       => '1.2.3.4',
     nameserver       => '8.8.8.8',
-    notifywhenbackup => false,
     tags             => ['dns']
 }
 
@@ -98,7 +69,6 @@ pingdom_check { "ping://${facts['fqdn']}":
     ensure           => present,
     provider         => 'ping',
     host             => $facts['fqdn'],
-    notifywhenbackup => false,
     tags             => ['ping']
 }
 

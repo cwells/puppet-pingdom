@@ -17,7 +17,7 @@ begin # require PuppetX module
     require File.expand_path( # yes, this is the recommended way :P
         File.join(
             File.dirname(__FILE__), '..', '..', '..',
-            'puppet_x', 'pingdom', 'client-2.0.rb'
+            'puppet_x', 'pingdom', 'client-2.1.rb'
         )
     )
     has_pingdom_api = true
@@ -95,24 +95,24 @@ Puppet::Type.type(:pingdom_check).provide(:check_base) do
     #
     # custom getters/setters
     #
-    def contacts
+    def users
         # accepts list of ids, returns list of names
-        ids = @check.fetch('contactids', nil)
-        contact = api.select_contacts(ids, search='id') if !ids.nil?
-        if contact.respond_to? :map
-            contact.map { |contact| contact['name'] }
+        ids = @check.fetch('userids', nil)
+        user = api.select_users(ids, search='id') if !ids.nil?
+        if user.respond_to? :map
+            user.map { |user| user['name'] }
         else
             :absent
         end
     end
 
-    def contacts=(value)
+    def users=(value)
         # accepts list of names, returns list of ids
-        contacts = api.select_contacts(value, search='name')
-        raise 'Unknown contact in list' unless contacts.size == value.size
-        ids = contacts.map { |contact| contact['id'] }
+        users = api.select_users(value, search='name')
+        raise 'Unknown user in list' unless users.size == value.size
+        ids = users.map { |user| user['id'] }
         newvalue = ids.join(',') if ids.respond_to? :join
-        @property_hash[:contactids] = newvalue
+        @property_hash[:userids] = newvalue
     end
 
     def filter_tags=(value)

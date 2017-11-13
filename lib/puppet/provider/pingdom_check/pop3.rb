@@ -1,5 +1,5 @@
 Puppet::Type.type(:pingdom_check).provide(:pop3, :parent => :check_base) do
-    has_features :port, :stringtoexpect, :encryption
+    has_features :api_2_0, :port, :stringtoexpect, :encryption
 
     def encryption
         begin

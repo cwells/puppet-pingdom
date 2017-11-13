@@ -11,10 +11,6 @@ require 'faraday'
 module PuppetX; end
 module PuppetX::Pingdom; end
 
-def filter_nils(hash)
-    hash.select { |k, v| !v.nil? }
-end
-
 class PuppetX::Pingdom::Client
     @@api_host = 'https://api.pingdom.com'
     @@api_base = '/api/2.1'
@@ -142,6 +138,11 @@ class PuppetX::Pingdom::Client
             raise "Error(#{__method__}): #{body['error']['errormessage']}" unless response.success?
             body['users']
         end
+    end
+
+    def select_users(values, search='id')
+        # returns list of users or nil
+        users.select { |user| values.include? user[search] }
     end
 
     def create_user(params)

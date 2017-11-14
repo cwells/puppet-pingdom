@@ -1,8 +1,8 @@
 #
-# Base class for all Contact providers.
+# Base class for all user providers.
 #
 # Provider must:
-# - have `:parent => :contact_base` in their declaration.
+# - have `:parent => :user_base` in their declaration.
 # - declare any new properties as features using `has_features`.
 # - create setters/getters for provider-specific properties
 #   that require special handling (optional).
@@ -36,21 +36,24 @@ Puppet::Type.type(:pingdom_user).provide(:user_base) do
                 creds = YAML.load_file(
                     File.expand_path @resource[:credentials_file]
                 )
-                username, password, appkey = creds['username'], creds['password'], creds['appkey']
+                account_email, user_email, password, appkey =
+                    creds['account_email'], creds['user_email'], creds['password'], creds['appkey']
             else
                 raise 'Missing API credentials' if [
-                    @resource[:username],
+                    @resource[:account_email],
+                    @resource[:user_email],
                     @resource[:password],
                     @resource[:appkey]
                 ].include? nil and @resource[:credentials_file].is_nil?
-                username, password, appkey = @resource[:username], @resource[:password], @resource[:appkey]
+                account_email, user_email, password, appkey =
+                    @resource[:account_email], @resource[:user_email], @resource[:password], @resource[:appkey]
             end
-            PuppetX::Pingdom::Client.new(username, password, appkey, @resource[:logging])
+            PuppetX::Pingdom::Client.new(account_email, user_email, password, appkey, @resource[:logging])
         end
     end
 
     def exists?
-        @contact ||= api.find_contact @resource[:name]
+        @user ||= api.find_user @resource[:name]
     end
 
     def create
@@ -59,7 +62,7 @@ Puppet::Type.type(:pingdom_user).provide(:user_base) do
 
     def flush
         if @resource[:ensure] == :absent
-            api.delete_contact @contact if @contact
+            api.delete_user @user if @user
             return
         end
 
@@ -69,15 +72,55 @@ Puppet::Type.type(:pingdom_user).provide(:user_base) do
         end
         @property_hash[:name] = @resource[:name]
 
-        if @contact
-            api.modify_contact @contact, @property_hash
+        if @user
+            api.modify_user @user, @property_hash
         else
-            api.create_contact @property_hash
+            api.create_user @property_hash
         end
     end
 
     def destroy
         @resource[:ensure] = :absent
+    end
+
+    #
+    # custom getters/setters
+    #
+    def contact_targets
+        puts "CONTACT_TARGETS: #{@user['email']}"
+        puts "CONTACT_TARGETS: #{@user['sms']}"
+        targets = []
+        @user['email'].each do |email|
+            targets << {
+                'email' => email['address'],
+                'severity' => email['severity']
+            }
+        end
+        @user['sms'].each do |sms|
+            targets << {
+                'number' => sms['number'],
+                'countrycode' => sms['country_code'],
+                'severity' => sms['severity']
+            }
+        end
+        targets
+    end
+
+    def contact_targets=(value)
+        # puts "contact_targets=: user: #{@user}, value: #{value}"
+        @property_hash[:contact_targets] = value
+    end
+
+    def paused
+        if @user.include? 'paused'
+            (@user['paused'] == 'YES').to_s.to_sym
+        else
+            :absent
+        end
+    end
+
+    def paused=(value)
+        @property_hash[:paused] = { :true => 'YES', :false => 'NO' }[value]
     end
 
     #
@@ -93,7 +136,7 @@ Puppet::Type.type(:pingdom_user).provide(:user_base) do
         # define every single getter/setter).
 
         [ resource_type.validproperties, resource_type.parameters ].flatten.each do |prop|
-            # It should be noted that this loops over all properties for all contact providers.
+            # It should be noted that this loops over all properties for all user providers.
             # This is unfortunate, but we are protected against invalid properties by the
             # `required_features` defined on each property in the type declarations.
             prop = prop.to_sym
@@ -101,7 +144,7 @@ Puppet::Type.type(:pingdom_user).provide(:user_base) do
 
             if !method_defined?(prop)
                 define_method(prop) do
-                    @contact.fetch(prop.to_s, :absent)
+                    @user.fetch(prop.to_s, :absent)
                 end
             end
 

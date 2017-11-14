@@ -41,12 +41,24 @@ Puppet::Type.newtype(:pingdom_user) do
     #
     # common properties
     #
+    newproperty(:access_level) do
+        desc %q([String ('contact', 'admin', 'owner')])
+    end
+
+    newproperty(:contact_targets, :array_matching=>:all) do
+        desc %q(Contact targets [Hash of key=>value pairs])
+    end
+
+    newproperty(:countrycode) do
+        desc %q(Country code [string], e.g. "1")
+    end
+
     newproperty(:email) do
-        desc %q(List of email targets [List of Strings])
+        desc %q(Email address [string])
     end
 
     newproperty(:number) do
-        desc 'User cellphone [String].'
+        desc %q(Cellphone number [string])
     end
 
     newproperty(:paused) do
@@ -54,7 +66,21 @@ Puppet::Type.newtype(:pingdom_user) do
         newvalues(:true, :false)
     end
 
+    newproperty(:primary) do
+        desc %q(This user is the primary contact [Boolean])
+        newvalues(:true, :false)
+    end
+
+    newproperty(:severitylevel) do
+        desc %q(Severity level [string])
+    end
+
     newproperty(:sms, :array_matching=>:all) do
         desc %q(List of SMS targets [List of Strings])
+    end
+
+    newproperty(:type) do
+        desc %q(Type of account [String ('contact', 'admin')])
+        newvalues(:contact, :admin)
     end
 end

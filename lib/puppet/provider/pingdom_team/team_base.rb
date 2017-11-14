@@ -36,16 +36,19 @@ Puppet::Type.type(:pingdom_team).provide(:team_base) do
                 creds = YAML.load_file(
                     File.expand_path @resource[:credentials_file]
                 )
-                username, password, appkey = creds['username'], creds['password'], creds['appkey']
+                account_email, user_email, password, appkey =
+                    creds['account_email'], creds['user_email'], creds['password'], creds['appkey']
             else
                 raise 'Missing API credentials' if [
-                    @resource[:username],
+                    @resource[:account_email],
+                    @resource[:user_email],
                     @resource[:password],
                     @resource[:appkey]
                 ].include? nil and @resource[:credentials_file].is_nil?
-                username, password, appkey = @resource[:username], @resource[:password], @resource[:appkey]
+                account_email, user_email, password, appkey =
+                    @resource[:account_email], @resource[:user_email], @resource[:password], @resource[:appkey]
             end
-            PuppetX::Pingdom::Client.new(username, password, appkey, @resource[:logging])
+            PuppetX::Pingdom::Client.new(account_email, user_email, password, appkey, @resource[:logging])
         end
     end
 

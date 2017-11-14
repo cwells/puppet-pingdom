@@ -13,32 +13,9 @@
 # At this point, from the top-level directory, you can run:
 #     `export RUBYLIB=$PWD/lib ; puppet apply tests/update.pp`
 
-Pingdom_contact {
-    credentials_file => '~/.pingdom_credentials',
-    countrycode      => '1',
-    countryiso       => 'US'
-}
-
 Pingdom_check {
     credentials_file => '~/.pingdom_credentials',
-    paused           => true,
-    contacts         => [
-        'DevOps',
-        'DevOps Pager'
-    ],
-    autofilter       => true
-}
-
-pingdom_contact { 'DevOps':
-    ensure    => present,
-    email     => 'devops@company.com',
-    cellphone => '555-222-4443'
-}
-
-pingdom_contact { 'DevOps Pager':
-    ensure    => present,
-    email     => 'devops-pager@company.com',
-    cellphone => '555-222-3334'
+    paused           => true
 }
 
 pingdom_check { "http://${facts['fqdn']}/check":
@@ -57,8 +34,6 @@ pingdom_check { "http://${facts['fqdn']}/check":
     shouldcontain    => 'healthy',
     resolution       => 5,
     ipv6             => false,
-    notifyagainevery => 0,
-    notifywhenbackup => false,
     tags             => ['http', 'updated']
 }
 
@@ -81,7 +56,6 @@ pingdom_check { "dns://${facts['fqdn']}":
     host             => $facts['fqdn'],
     expectedip       => '5.2.3.4',
     nameserver       => '8.8.8.8',
-    notifywhenbackup => false,
     tags             => ['dns', 'updated']
 }
 
@@ -89,7 +63,6 @@ pingdom_check { "ping://${facts['fqdn']}":
     ensure           => present,
     provider         => 'ping',
     host             => $facts['fqdn'],
-    notifywhenbackup => false,
     tags             => ['ping', 'updated']
 }
 

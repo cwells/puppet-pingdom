@@ -147,18 +147,31 @@ class PuppetX::Pingdom::Client
     end
 
     def create_user(params)
+        contacts = params.fetch(:contact_targets, nil)
+        params.delete :contact_targets
         response = @api.post @@endpoint[:users], params
-        body = JSON.parse(response.body)
-        raise "Error(#{__method__}): #{body['error']['errormessage']}" unless response.success?
-        body['user']
+        user = JSON.parse(response.body)
+        raise "Error(#{__method__}): #{user['error']['errormessage']}" unless response.success?
+        user = user['user']
+        contacts.each do |contact|
+            response = @api.post "#{@@endpoint[:users]}/#{user['id']}", contact
+            contact = JSON.parse(response.body)
+            raise "Error(#{__method__}): #{contact['error']['errormessage']}" unless response.success?
+        end
+        user
     end
 
     def find_user(name)
         # returns user or nil
-        users.select { |user| user['name'] == name } [0]
+        user = users.select { |user| user['name'] == name } [0]
+        puts "FIND_USER: #{user}"
+        user
     end
 
     def modify_user(user, params)
+        contacts = params.fetch(:contact_targets, nil)
+        params.delete :contact_targets
+        puts "MODIFY_USER: #{params}"
         response = @api.put "#{@@endpoint[:users]}/#{user['id']}", params
         body = JSON.parse(response.body)
         raise "Error(#{__method__}): #{body['error']['errormessage']}" unless response.success?
@@ -170,5 +183,13 @@ class PuppetX::Pingdom::Client
         }
         body = JSON.parse(response.body)
         raise "Error(#{__method__}): #{body['error']['errormessage']}" unless response.success?
+    end
+
+    def create_contact_target(user, params)
+        puts "USER: #{user}, PARAMS: #{params}"
+        response = @api.post "#{@@endpoint[:users]}/#{user['id']}", params
+        body = JSON.parse(response.body)
+        raise "Error(#{__method__}): #{body['error']['errormessage']}" unless response.success?
+        return body['contact_target']
     end
 end

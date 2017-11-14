@@ -37,25 +37,25 @@ pingdom_user { 'SRE PagerDuty':
     ]
 }
 
-# pingdom_check { "http://${facts['fqdn']}/check":
-#     ensure           => present,
-#     provider         => 'http',
-#     host             => $facts['fqdn'],
-#     url              => '/check',
-#     postdata         => Sensitive({
-#         username => 'admin',
-#         password => 'p@ssw0rd'
-#     }),
-#     requestheaders   => Sensitive({
-#         'Content-Type' => 'x-application/json',
-#         'Auth-Token'   => 'XXX892N123456'
-#     }),
-#     shouldcontain    => 'healthy',
-#     port             => 80,
-#     auth             => "admin:password",
-#     encryption       => false,
-#     tags             => ['http']
-# }
+pingdom_check { "http://${facts['fqdn']}/check":
+    ensure           => present,
+    provider         => 'http',
+    host             => $facts['fqdn'],
+    url              => '/check',
+    postdata         => Sensitive({
+        username => 'admin',
+        password => 'p@ssw0rd'
+    }),
+    requestheaders   => Sensitive({
+        'Content-Type' => 'x-application/json',
+        'Auth-Token'   => 'XXX892N123456'
+    }),
+    shouldcontain    => 'healthy',
+    port             => 80,
+    auth             => "admin:password",
+    encryption       => false,
+    tags             => ['http']
+}
 
 # pingdom_check { "httpcustom://${facts['fqdn']}/status/pingdom.xml":
 #     ensure           => present,

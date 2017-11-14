@@ -87,8 +87,6 @@ Puppet::Type.type(:pingdom_user).provide(:user_base) do
     # custom getters/setters
     #
     def contact_targets
-        puts "CONTACT_TARGETS: #{@user['email']}"
-        puts "CONTACT_TARGETS: #{@user['sms']}"
         targets = []
         @user['email'].each do |email|
             targets << {

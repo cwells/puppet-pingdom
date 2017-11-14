@@ -14,8 +14,7 @@
 #     `export RUBYLIB=$PWD/lib ; puppet apply tests/delete.pp`
 
 Pingdom_check {
-    credentials_file => '~/.pingdom_credentials',
-    autofilter       => true
+    credentials_file => '~/.pingdom_credentials'
 }
 
 $checks = [
@@ -31,5 +30,13 @@ $checks = [
 ]
 
 pingdom_check { $checks:
+    ensure => absent
+}
+
+Pingdom_user {
+    credentials_file => '~/.pingdom_credentials'
+}
+
+pingdom_user { 'SRE PagerDuty':
     ensure => absent
 }

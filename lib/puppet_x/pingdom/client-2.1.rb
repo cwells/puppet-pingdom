@@ -182,9 +182,7 @@ class PuppetX::Pingdom::Client
     end
 
     def delete_user(user)
-        response = @api.delete @@endpoint[:users], {
-            :deluserids => user['id'].to_s
-        }
+        response = @api.delete "#{@@endpoint[:users]}/#{user['id']}"
         body = JSON.parse(response.body)
         raise "Error(#{__method__}): #{body['error']['errormessage']}" unless response.success?
     end

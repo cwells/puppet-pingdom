@@ -8,6 +8,8 @@ class pingdom {
     'appkey'        => $definitions['appkey']
   }
 
+  notify { "${defaults}": }
+
   create_resources('pingdom_user', $definitions['users'], $defaults)
   create_resources('pingdom_check', $definitions['checks'], $defaults)
 }

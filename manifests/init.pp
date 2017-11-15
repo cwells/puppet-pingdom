@@ -1,26 +1,14 @@
-class pingdom (
-  $account,
-  $username,
-  $password,
-  $appkey,
-  $users = [],
-  $checks = []
-){
+class pingdom {
 
-  Pingdom_user {
-    pingdom_account  => Sensitive($account),
-    pingdom_username => Sensitive($username),
-    pingdom_password => Sensitive($password),
-    pingdom_appkey   => $appkey
+  $definitions = lookup('pingdom', Hash)
+
+  $defaults = {
+    pingdom_account  => Sensitive($definitions['account']),
+    pingdom_username => Sensitive($definitions['username']),
+    pingdom_password => Sensitive($definitions['password']),
+    pingdom_appkey   => $definitions['appkey']
   }
 
-  Pingdom_check {
-    pingdom_account  => Sensitive($account),
-    pingdom_username => Sensitive($username),
-    pingdom_password => Sensitive($password),
-    pingdom_appkey   => $appkey
-  }
-
-  create_resources(pingdom_user, $users)
-  create_resources(pingdom_check, $checks)
+  create_resources('pingdom_user', $definitions['users'], $defaults)
+  create_resources('pingdom_check', $definitions['checks'], $defaults)
 }

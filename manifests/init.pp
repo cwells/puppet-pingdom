@@ -1,6 +1,6 @@
 class pingdom {
 
-  $definitions = lookup('pingdom', Array)
+  $definitions = lookup('pingdom', Hash)
 
   notify { "${definitions}": }
 

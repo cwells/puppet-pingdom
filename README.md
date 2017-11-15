@@ -105,24 +105,9 @@ See instructions on [PuppetForge](https://forge.puppet.com/cwells/pingdom/readme
 ---
 
 #### Attention
-This release introduces a new feature `autofilter` [default: `true`]. Be aware that this feature will automatically tag the check with a shortened SHA1 hash of the check's `name` property, and automatically set `filter_tags` to include this tag. This allows us to efficiently locate this check in the future. However, if you have existing checks, enabling `autofilter` will cause them to no longer be found (since they lack the requisite SHA1 tag in `filter_tags`).
+This module utilizes a feature named `autofilter` [default: `true`]. Be aware that this feature will automatically tag your checks with a shortened SHA1 hash of the check's `name` property, and automatically set `filter_tags` to include this tag. This allows us to efficiently locate this check in the future. However, if you have existing checks, enabling `autofilter` will cause them to no longer be found (since they lack the requisite SHA1 tag in `filter_tags`).
 
-```puppet
-Pingdom_check {
-    autofilter => false
-}
-
-pingdom_check { "http://${facts['fqdn']}":
-    ensure => present,
-    tags   => [sha1("http://${facts['fqdn']}")[0,5], 'http']
-}
-```
-
-Once Puppet has run, remove the sha1 tag, and set `autofilter => true`. Your existing checks should be found.
-
-More simply, delete the existing checks and allow Puppet to recreate them with the proper tags.
-
-Finally, if you don't want or need this feature (trust me, you do), then just disable it with `autofilter => false`.
+To get around this, and have your existing checks tagged, set `autofilter => 'bootstrap'` and run Puppet on all your nodes. This will enable tagging, but not set `filter_tags`. If you have a lot of existing checks, this may be a slow Puppet run.
 
 ---
 

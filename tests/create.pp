@@ -29,6 +29,7 @@ Pingdom_check {
     contacts         => [
         'SRE PagerDuty'
     ],
+    autofilter       => 'bootstrap',
     logging          => $loglevel
 }
 

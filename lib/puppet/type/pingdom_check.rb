@@ -35,7 +35,7 @@ Puppet::Type.newtype(:pingdom_check) do
 
     newparam(:autofilter) do
         desc 'Automatically tag and filter checks [boolean (default true)].'
-        newvalues(:true, :false)
+        newvalues(:true, :false, :bootstrap)
         defaultto :true
 
         validate do |value|

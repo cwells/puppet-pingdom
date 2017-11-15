@@ -53,9 +53,9 @@ Puppet::Type.type(:pingdom_check).provide(:check_base) do
     end
 
     def exists?
-        if @resource[:autofilter] == :true
+        if [:true, :bootstrap].include? @resource[:autofilter]
             @autotag ||= 'puppet-' + Digest::SHA1.hexdigest(@resource[:name])[0..5]
-            @resource[:filter_tags] = [@autotag]
+            @resource[:filter_tags] = [@autotag] if @resource[:autofilter] != :bootstrap
             @property_hash[:tags] = [@autotag]
         else
             @autotag = nil

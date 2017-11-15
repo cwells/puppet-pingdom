@@ -1,8 +1,7 @@
 class pingdom {
-
   $definitions = lookup('pingdom', Hash)
 
-  notify { "${definitions}": }
+  notify { $definitions: }
 
   $defaults = {
     pingdom_account  => Sensitive($definitions['account']),

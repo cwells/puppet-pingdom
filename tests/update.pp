@@ -13,57 +13,92 @@
 # At this point, from the top-level directory, you can run:
 #     `export RUBYLIB=$PWD/lib ; puppet apply tests/update.pp`
 
+$loglevel = 'ERROR'
+
+Pingdom_user {
+    credentials_file => '~/.pingdom_credentials',
+    paused           => true,
+    logging          => $loglevel
+}
+
 Pingdom_check {
     credentials_file => '~/.pingdom_credentials',
-    paused           => true
+    paused           => true,
+    ipv6             => false,
+    resolution       => 30,
+    contacts         => [
+        'DevOps',
+        'DevOps Pager'
+    ],
+    autofilter       => 'bootstrap',
+    logging          => $loglevel
+}
+
+pingdom_user { 'DevOps':
+    ensure          => present,
+    contact_targets => [
+        { email  => 'devops@domain.com', severity => 'HIGH' },
+        { number => '555-123-1212', countrycode => '1', severity => 'HIGH' }
+    ]
+}
+
+pingdom_user { 'DevOps Pager':
+    ensure          => present,
+    contact_targets => [
+        { email  => 'devops-pager@domain.com', severity => 'HIGH' },
+        { number => '555-123-1234', countrycode => '1', severity => 'HIGH' }
+    ]
 }
 
 pingdom_check { "http://${facts['fqdn']}/check":
     ensure           => present,
     provider         => 'http',
     host             => $facts['fqdn'],
-    url              => '/uptime',
+    url              => '/check',
     postdata         => Sensitive({
         username => 'admin',
-        password => 'newp@ssw0rd'
+        password => 'b3tt3rp@ssw0rd'
     }),
     requestheaders   => Sensitive({
         'Content-Type' => 'x-application/json',
-        'Auth-Token'   => 'XXX892N123456ZZZ'
+        'Auth-Token'   => '12324af3qnqev00343'
     }),
-    shouldcontain    => 'healthy',
-    resolution       => 5,
-    ipv6             => false,
-    tags             => ['http', 'updated']
+    shouldcontain    => 'not bad',
+    port             => 80,
+    auth             => "admin:f00b@rb@z",
+    encryption       => true,
+    tags             => ['http']
 }
 
 pingdom_check { "httpcustom://${facts['fqdn']}/status/pingdom.xml":
     ensure           => present,
     provider         => 'httpcustom',
     host             => $facts['fqdn'],
-    url              => '/check/pingdom.xml',
-    auth             => Sensitive('root:secret'),
+    url              => '/status/pingdom.xml',
+    auth             => Sensitive('super:secret'),
     additionalurls   => [
-        'http://www.domain1.com',
-        'http://www.domain3.com'
+        'http://www.domain3.com',
+        'http://www.domain4.com'
     ],
-    tags             => ['http', 'updated']
+    port             => 443,
+    encryption       => true,
+    tags             => ['http']
 }
 
 pingdom_check { "dns://${facts['fqdn']}":
     ensure           => present,
     provider         => 'dns',
     host             => $facts['fqdn'],
-    expectedip       => '5.2.3.4',
-    nameserver       => '8.8.8.8',
-    tags             => ['dns', 'updated']
+    expectedip       => '2.4.6.8',
+    nameserver       => '4.2.2.2',
+    tags             => ['dns']
 }
 
 pingdom_check { "ping://${facts['fqdn']}":
     ensure           => present,
     provider         => 'ping',
-    host             => $facts['fqdn'],
-    tags             => ['ping', 'updated']
+    host             => '8.8.8.8',
+    tags             => ['ping']
 }
 
 pingdom_check { "imap://${facts['fqdn']}":
@@ -71,9 +106,9 @@ pingdom_check { "imap://${facts['fqdn']}":
     provider       => 'imap',
     host           => $facts['fqdn'],
     port           => 993,
-    stringtoexpect => 'Courier IMAP v3',
+    stringtoexpect => 'Courier IMAP v4',
     encryption     => true,
-    tags           => ['imap', 'updated']
+    tags           => ['imap']
 }
 
 pingdom_check { "pop3://${facts['fqdn']}":
@@ -81,10 +116,10 @@ pingdom_check { "pop3://${facts['fqdn']}":
     provider       => 'pop3',
     host           => $facts['fqdn'],
     port           => 995,
-    stringtoexpect => 'Courier POP3 v3',
+    stringtoexpect => 'Courier POP3 v4',
     encryption     => true,
     paused         => true,
-    tags           => ['pop3', 'updated']
+    tags           => ['pop3']
 }
 
 pingdom_check { "smtp://${facts['fqdn']}":
@@ -92,9 +127,9 @@ pingdom_check { "smtp://${facts['fqdn']}":
     provider       => 'smtp',
     host           => $facts['fqdn'],
     port           => 995,
-    stringtoexpect => 'Postfix SMTP Server',
+    stringtoexpect => 'Postfix v3',
     encryption     => true,
-    tags           => ['smtp', 'updated']
+    tags           => ['smtp']
 }
 
 pingdom_check { "tcp://${facts['fqdn']}":
@@ -102,11 +137,11 @@ pingdom_check { "tcp://${facts['fqdn']}":
     provider       => 'tcp',
     host           => $facts['fqdn'],
     port           => 1234,
-    stringtosend   => 'hello',
-    stringtoexpect => 'howdy',
+    stringtosend   => 'hi',
+    stringtoexpect => 'hola',
     encryption     => true,
     paused         => true,
-    tags           => ['tcp', 'updated']
+    tags           => ['tcp']
 }
 
 pingdom_check { "udp://${facts['fqdn']}":
@@ -114,8 +149,9 @@ pingdom_check { "udp://${facts['fqdn']}":
     provider       => 'udp',
     host           => $facts['fqdn'],
     port           => 1234,
-    stringtosend   => 'hello',
-    stringtoexpect => 'howdy',
+    stringtosend   => 'aloha',
+    stringtoexpect => 'zdravo',
     encryption     => true,
-    tags           => ['udp', 'updated']
+    tags           => ['udp']
 }
+

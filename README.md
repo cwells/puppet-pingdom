@@ -131,4 +131,4 @@ Finally, if you don't want or need this feature (trust me, you do), then just di
 - BeepManager API isn't currently manageable. That's an API 2.1 feature and 2.1 support is under development. This means only legacy notifications are supported. Sucks, but the silver lining is that you don't _have_ to manage notifications with Puppet. Unless otherwise specified, BeepManager is the default, so you can simply skip controlling this aspect with Puppet and let the defaults handle the situation.
 
 [pingdom_check_properties]: https://github.com/cwells/puppet-pingdom/wiki/Check-properties
-[pingdom_contact_properties]: https://github.com/cwells/puppet-pingdom/wiki/Contact-properties
+[pingdom_user_properties]: https://github.com/cwells/puppet-pingdom/wiki/User-properties

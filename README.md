@@ -2,14 +2,14 @@
 Puppet type and provider for the Pingdom API.
 
 #### Status
-Currently supports the 2.0 API with legacy notifications.
+Currently supports the 2.1 API (if you need 2.0 API support, checkout the 0.5 releases, but be aware that Pingdom is ending 2.0 API support within the year).
 
 This module is considered fully-functional, but hasn't seen wide testing. Please consider helping by submitting [bug reports](https://github.com/cwells/puppet-pingdom/issues). Pull requests also welcome.
 
 ---
 
 #### Types
-[`pingdom_check`][pingdom_check_properties] [`pingdom_contact`][pingdom_contact_properties]
+[`pingdom_check`][pingdom_check_properties] [`pingdom_user`][pingdom_user_properties]
 
 #### Check providers
 `dns` `http` `httpcustom` `imap` `ping` `pop3` `smtp` `tcp` `udp`
@@ -19,12 +19,11 @@ This module is considered fully-functional, but hasn't seen wide testing. Please
 #### Example usage
 ###### Defaults:
 ```puppet
-Pingdom_contact {
-    username    => Sensitive($pingdom_username),
-    password    => Sensitive($pingdom_password),
-    appkey      => $pingdom_appkey,
-    countrycode => '1',
-    countryiso  => 'US'
+Pingdom_user {
+    username => Sensitive($pingdom_username),
+    password => Sensitive($pingdom_password),
+    appkey   => $pingdom_appkey,
+    paused   => true
 }
 
 Pingdom_check {
@@ -39,16 +38,20 @@ Pingdom_check {
 
 ###### Contacts:
 ```puppet
-pingdom_contact { 'DevOps':
-    ensure    => present,
-    email     => 'devops@company.com',
-    cellphone => '555-222-4444'
+pingdom_user { 'DevOps':
+    ensure          => present,
+    contact_targets => [
+        { email  => 'devops@domain.com', severity => 'HIGH' },
+        { number => '555-123-1212', countrycode => '1', severity => 'HIGH' }
+    ]
 }
 
-pingdom_contact { 'DevOps Pager':
-    ensure    => present,
-    email     => 'devops-pager@company.com',
-    cellphone => '555-222-3333'
+pingdom_user { 'DevOps Pager':
+    ensure          => present,
+    contact_targets => [
+        { email  => 'devops-pager@domain.com', severity => 'HIGH' },
+        { number => '555-123-1213', countrycode => '1', severity => 'HIGH' }
+    ]
 }
 ```
 

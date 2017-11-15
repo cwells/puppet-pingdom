@@ -13,7 +13,7 @@
 # At this point, from the top-level directory, you can run:
 #     `export RUBYLIB=$PWD/lib ; puppet apply tests/create.pp`
 
-$loglevel = 'INFO'
+$loglevel = 'ERROR'
 
 Pingdom_user {
     credentials_file => '~/.pingdom_credentials',
@@ -26,13 +26,16 @@ Pingdom_check {
     paused           => true,
     ipv6             => false,
     resolution       => 30,
+    contacts         => [
+        'SRE PagerDuty'
+    ],
     logging          => $loglevel
 }
 
 pingdom_user { 'SRE PagerDuty':
     ensure          => present,
     contact_targets => [
-        { email  => 'pagerduty@focusvision.com', severity => 'HIGH' },
+        { email  => 'pagerduty@domain.com', severity => 'HIGH' },
         { number => '555-123-1212', countrycode => '1', severity => 'HIGH' }
     ]
 }

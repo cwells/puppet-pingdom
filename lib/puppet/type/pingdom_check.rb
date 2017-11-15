@@ -68,7 +68,7 @@ Puppet::Type.newtype(:pingdom_check) do
     #
     # common properties
     #
-    newproperty(:users, :array_matching=>:all) do
+    newproperty(:contacts, :array_matching=>:all) do
         desc 'User names [list of strings].'
 
         def insync?(is)

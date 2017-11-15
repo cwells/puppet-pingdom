@@ -167,16 +167,19 @@ class PuppetX::Pingdom::Client
     end
 
     def modify_user(user, params)
-        contacts = params.fetch(:contact_targets, nil)
+        contacts = params.fetch(:contact_targets, [])
+        old_contacts = params.fetch(:old_contact_targets, [])
         params.delete :contact_targets
+        params.delete :old_contact_targets
         response = @api.put "#{@@endpoint[:users]}/#{user['id']}", params
         body = JSON.parse(response.body)
         raise "Error(#{__method__}): #{body['error']['errormessage']}" unless response.success?
-        user = body['user']
+
+        old_contacts.each do |contact|
+            delete_contact user, contact if contact.include? 'id'
+        end
         contacts.each do |contact|
-            response = @api.post "#{@@endpoint[:users]}/#{user['id']}", contact
-            contact = JSON.parse(response.body)
-            raise "Error(#{__method__}): #{contact['error']['errormessage']}" unless response.success?
+            create_contact user, contact
         end
         user
     end
@@ -187,10 +190,21 @@ class PuppetX::Pingdom::Client
         raise "Error(#{__method__}): #{body['error']['errormessage']}" unless response.success?
     end
 
-    # def create_contact_target(user, params)
-    #     response = @api.post "#{@@endpoint[:users]}/#{user['id']}", params
-    #     body = JSON.parse(response.body)
-    #     raise "Error(#{__method__}): #{body['error']['errormessage']}" unless response.success?
-    #     return body['contact_target']
-    # end
+    def create_contact(user, contact)
+        response = @api.post "#{@@endpoint[:users]}/#{user['id']}", contact
+        body = JSON.parse(response.body)
+        raise "Error(#{__method__}): #{body['error']['errormessage']}" unless response.success?
+    end
+
+    def modify_contact(user, contact)
+        response = @api.put "#{@@endpoint[:users]}/#{user['id']}/#{contact['id']}", contact
+        body = JSON.parse(response.body)
+        raise "Error(#{__method__}): #{body['error']['errormessage']}" unless response.success?
+    end
+
+    def delete_contact(user, contact)
+        response = @api.delete "#{@@endpoint[:users]}/#{user['id']}/#{contact['id']}"
+        body = JSON.parse(response.body)
+        raise "Error(#{__method__}): #{body['error']['errormessage']}" unless response.success?
+    end
 end

@@ -47,6 +47,14 @@ Puppet::Type.newtype(:pingdom_user) do
 
     newproperty(:contact_targets, :array_matching=>:all) do
         desc %q(Contact targets [Hash of key=>value pairs])
+
+        def insync?(is)
+            if is.nil?
+                return should.nil?
+            end
+            filtered = is.map { |contact| contact.select { |k, v| k != 'id' } }
+            should.nil? or filtered = should
+        end
     end
 
     newproperty(:countrycode) do

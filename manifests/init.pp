@@ -2,10 +2,10 @@ class pingdom {
   $definitions = lookup('pingdom', Hash)
 
   $defaults = {
-    'pingdom_account'  => Sensitive($definitions['account']),
-    'pingdom_username' => Sensitive($definitions['username']),
-    'pingdom_password' => Sensitive($definitions['password']),
-    'pingdom_appkey'   => $definitions['appkey']
+    'account'  => Sensitive($definitions['account']),
+    'username' => Sensitive($definitions['username']),
+    'password' => Sensitive($definitions['password']),
+    'appkey'   => $definitions['appkey']
   }
 
   create_resources('pingdom_user', $definitions['users'], $defaults)

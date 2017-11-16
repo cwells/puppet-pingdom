@@ -17,7 +17,7 @@ begin # require PuppetX module
     require File.expand_path( # yes, this is the recommended way :P
         File.join(
             File.dirname(__FILE__), '..', '..', '..',
-            'puppet_x', 'pingdom', 'client-2.1.rb'
+            'puppet_x', 'pingdom', 'client-http-2.1.rb'
         )
     )
     has_pingdom_api = true

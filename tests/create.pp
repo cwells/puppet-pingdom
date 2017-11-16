@@ -32,7 +32,7 @@ Pingdom_check {
 pingdom_user { 'SRE PagerDuty':
     ensure          => present,
     contact_targets => [
-        { email  => 'pagerduty@domain.com', severity => 'LOW' },
+        { email  => 'pagerduty@domain.com' },
         { number => '555-123-1212', countrycode => '1' }
     ]
 }

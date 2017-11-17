@@ -13,9 +13,6 @@ class pingdom (
         'appkey'        => pick($appkey, hiera_hash('pingdom::appkey'))
     }
 
-    $users = hiera_hash('pingdom::users')
-    $checks = hiera_hash('pingdom::checks')
-
-    create_resources('pingdom_user',  $users,  $defaults)
-    create_resources('pingdom_check', $checks, $defaults)
+    create_resources('pingdom_user',  hiera_hash('pingdom::users'),  $defaults)
+    create_resources('pingdom_check', hiera_hash('pingdom::checks'), $defaults)
 }

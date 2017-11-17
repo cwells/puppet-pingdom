@@ -1,19 +1,13 @@
-class pingdom (
-    String $account_email,
-    String $user_email,
-    String $password,
-    String $appkey,
-    Hash $users  = {},
-    Hash $checks = {}
-){
+class pingdom {
+    $params = hiera_hash('pingdom')
 
     $defaults = {
-        'account_email' => $account_email,
-        'user_email'    => $user_email,
-        'password'      => $password,
-        'appkey'        => $appkey
+        'account_email' => $params['account_email'],
+        'user_email'    => $params['user_email'],
+        'password'      => $params['password'],
+        'appkey'        => $params['appkey']
     }
 
-    create_resources('pingdom_user',  $users,  $defaults)
-    create_resources('pingdom_check', $checks, $defaults)
+    create_resources('pingdom_user',  $params['users'],  $defaults)
+    create_resources('pingdom_check', $params['checks'], $defaults)
 }

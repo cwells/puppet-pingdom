@@ -17,7 +17,7 @@
 Pingdom_user {
     credentials_file => '~/.pingdom_credentials',
     paused           => true,
-    loglevel => 'info'
+    log_level => 'info'
 }
 
 Pingdom_check {
@@ -28,7 +28,7 @@ Pingdom_check {
     contacts         => [
         'SRE PagerDuty'
     ],
-    loglevel => 'info'
+    log_level => 'info'
 }
 
 pingdom_user { 'SRE PagerDuty':

@@ -12,14 +12,14 @@ module PuppetX
         class PuppetX::Pingdom::Http
             require 'net/https'
 
-            def initialize(host, loglevel=:error)
+            def initialize(host, log_level=:error)
                 uri = URI.parse(host)
                 @http = Net::HTTP.new(uri.host, 443)
                 @http.use_ssl = true
                 @http.verify_mode = OpenSSL::SSL::VERIFY_PEER
                 @headers = {}
                 @basic_auth = nil
-                enable_logging loglevel
+                enable_logging log_level.to_s
             end
 
             def basic_auth(username, password)
@@ -68,8 +68,8 @@ module PuppetX
                 :users   => "#{@@api_base}/users"
             }
 
-            def initialize(account_email, user_email, password, appkey, loglevel=:error)
-                @api = PuppetX::Pingdom::Http.new @@api_host, loglevel
+            def initialize(account_email, user_email, password, appkey, log_level=:error)
+                @api = PuppetX::Pingdom::Http.new @@api_host, log_level
                 @api.basic_auth(user_email, password)
                 @api.headers({
                     'App-Key' => appkey,

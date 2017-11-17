@@ -54,4 +54,11 @@ Puppet::Type.newtype(:pingdom_team) do
             end
         end
     end
+
+    #
+    # autorequires
+    #
+    autorequire(:pingdom_user) do
+        self[:users]
+    end
 end

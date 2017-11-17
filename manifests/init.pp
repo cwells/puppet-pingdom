@@ -8,7 +8,7 @@ class pingdom {
 
     notify { "${defaults}": }
 
-    # create_resources('pingdom_user',  hiera_hash('pingdom::users'),  $defaults)
+    create_resources('pingdom_user',  hiera_hash('pingdom::users'),  $defaults)
     # create_resources('pingdom_check', hiera_hash('pingdom::checks'), $defaults)
 }
 

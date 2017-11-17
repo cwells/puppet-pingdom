@@ -1,7 +1,7 @@
 class pingdom {
-    $account_email = hiera('pingdom::account_email'),
-    $user_email    = hiera('pingdom::user_email'),
-    $password      = hiera('pingdom::password'),
+    $account_email = hiera('pingdom::account_email')
+    $user_email    = hiera('pingdom::user_email')
+    $password      = hiera('pingdom::password')
     $appkey        = hiera('pingdom::appkey')
 
     Pingdom_user {

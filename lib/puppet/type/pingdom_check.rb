@@ -13,27 +13,27 @@ Puppet::Type.newtype(:pingdom_check) do
 
     ensurable
 
-    newparam('name', :namevar => true) do
+    newparam(:name, :namevar => true) do
         desc 'The name of the check.'
     end
 
-    newparam('account_email') do
+    newparam(:account_email) do
         desc 'Account email [string].'
     end
 
-    newparam('user_email') do
+    newparam(:user_email) do
         desc 'User email [string].'
     end
 
-    newparam('password') do
+    newparam(:password) do
         desc 'API password [string].'
     end
 
-    newparam('appkey') do
+    newparam(:appkey) do
         desc 'API app key [string].'
     end
 
-    newparam('autofilter') do
+    newparam(:autofilter) do
         desc 'Automatically tag and filter checks [boolean (default true)].'
         newvalues(:true, :false, :bootstrap)
         defaultto :true
@@ -45,11 +45,11 @@ Puppet::Type.newtype(:pingdom_check) do
         end
     end
 
-    newparam('credentials_file') do
+    newparam(:credentials_file) do
         desc 'YAML file containing Pingdom credentials [string]'
     end
 
-    newparam('filter_tags') do
+    newparam(:filter_tags) do
         desc 'List of tags to restrict actions to [list of strings]'
         defaultto []
 
@@ -60,7 +60,7 @@ Puppet::Type.newtype(:pingdom_check) do
         # end
     end
 
-    newparam('log_level') do
+    newparam(:log_level) do
         desc 'Logging level for API requests [String (ERROR, WARN, INFO, DEBUG)]'
         newvalues(:error, :warn, :info, :debug)
         defaultto :error

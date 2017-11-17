@@ -41,7 +41,7 @@ module PuppetX
                 response = @http.request request
                 @logger.info "#{response.code} #{method.upcase} #{uri}"
                 @logger.debug response.body
-                raise "Got an HTTP error: #{response.code}" unless [200].include? response.code.to_i
+                raise "Got an HTTP error: #{response.code}" unless response.code == '200'
                 response
             end
 

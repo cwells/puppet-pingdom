@@ -1,9 +1,9 @@
 class pingdom {
     $defaults = {
-        'account_email' => hiera('pingdom::account_email'),
-        'user_email'    => hiera('pingdom::user_email'),
-        'password'      => hiera('pingdom::password'),
-        'appkey'        => hiera('pingdom::appkey')
+        'account_email' => hiera_hash('pingdom::account_email'),
+        'user_email'    => hiera_hash('pingdom::user_email'),
+        'password'      => hiera_hash('pingdom::password'),
+        'appkey'        => hiera_hash('pingdom::appkey')
     }
 
     Pingdom_user {

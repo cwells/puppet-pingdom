@@ -16,8 +16,7 @@
 
 Pingdom_user {
     credentials_file => '~/.pingdom_credentials',
-    paused           => true,
-    logging => 'info'
+    paused           => true
 }
 
 Pingdom_check {
@@ -28,8 +27,7 @@ Pingdom_check {
     contacts         => [
         'DevOps',
         'DevOps Pager'
-    ],
-    logging => 'info'
+    ]
 }
 
 pingdom_user { 'DevOps':

@@ -1,13 +1,19 @@
-class pingdom {
-  $definitions = hiera('pingdom')
+class pingdom (
+    String $account_email,
+    String $user_email,
+    String $password,
+    String $appkey,
+    Hash $users  = {},
+    Hash $checks = {}
+){
 
-  $defaults = {
-    'account_email' => pick($definitions['account_email'], 'Missing parameter `account_email`'),
-    'user_email'    => pick($definitions['user_email'], 'Missing parameter `user_email`'),
-    'password'      => pick($definitions['password'], 'Missing parameter `password`'),
-    'appkey'        => pick($definitions['appkey'], 'Missing parameter `appkey`')
-  }
+    $defaults = {
+        'account_email' => $account_email,
+        'user_email'    => $user_email,
+        'password'      => $password,
+        'appkey'        => $appkey
+    }
 
-  create_resources('pingdom_user', $definitions['users'], $defaults)
-  create_resources('pingdom_check', $definitions['checks'], $defaults)
+    create_resources('pingdom_user',  $users,  $defaults)
+    create_resources('pingdom_check', $checks, $defaults)
 }

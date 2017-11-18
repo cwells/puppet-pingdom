@@ -11,8 +11,12 @@ class pingdom {
     $teams = hiera_hash('pingdom::teams', {})
     $checks = hiera_hash('pingdom::checks', {})
 
-    create_resources('pingdom_user', $users, $defaults)
-    create_resources('pingdom_team', $teams, $defaults)
-    create_resources('pingdom_check', $checks, $defaults)
+    notify { "${users}": }
+    notify { "${teams}": }
+    notify { "${checks}": }
+
+    # create_resources('pingdom_user', $users, $defaults)
+    # create_resources('pingdom_team', $teams, $defaults)
+    # create_resources('pingdom_check', $checks, $defaults)
 }
 

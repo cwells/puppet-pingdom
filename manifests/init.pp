@@ -7,9 +7,9 @@ class pingdom {
 #        'log_level'     => lookup('pingdom::log_level')
     }
 
-    $users = lookup('pingdom::users', Hash, 'hash')
-    $teams = lookup('pingdom::teams', Hash, 'hash')
-    $checks = lookup('pingdom::checks', Hash, 'hash')
+    $users = lookup('pingdom::users', Hash, 'hash', {})
+    $teams = lookup('pingdom::teams', Hash, 'hash', {})
+    $checks = lookup('pingdom::checks', Hash, 'hash', {})
 
     notify { "${users}": }
     notify { "${teams}": }

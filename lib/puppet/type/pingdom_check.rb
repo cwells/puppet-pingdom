@@ -159,10 +159,6 @@ Puppet::Type.newtype(:pingdom_check) do
                 threshold specified in ms [integer])
     end
 
-    newproperty(:sendnotificationwhendown) do
-        desc 'Send notification when down n times [integer]'
-    end
-
     newproperty(:tags, :array_matching=>:all) do
         desc 'Check tags [list of strings].'
 

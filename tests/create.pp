@@ -31,7 +31,6 @@ Pingdom_check {
     notifyagainevery         => 5,
     notifywhenbackup         => false,
     responsetime_threshold   => 10,
-    sendnotificationwhendown => true,
     users                    => [ 'SRE PagerDuty' ]
 }
 

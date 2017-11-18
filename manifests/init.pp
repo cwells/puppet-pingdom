@@ -11,7 +11,7 @@ class pingdom {
     $teams = hiera_hash('pingdom::teams', {})
     $checks = hiera_hash('pingdom::checks', {})
 
-    notify { "${users}": }
+    # notify { "${users}": }
     notify { "${teams}": }
     notify { "${checks}": }
 

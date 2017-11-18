@@ -9,7 +9,7 @@ class pingdom {
     }
 
     $defaults = $account_email ? {
-        default => merge($common, {'account_email' => $account_email})
+        default => merge($common, {'account_email' => $account_email}),
         false   => $common
     }
 

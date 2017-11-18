@@ -12,9 +12,9 @@ class pingdom {
         false   => $common
     }
 
-    $users = lookup('pingdom::users', Hash, 'hash', {})
-    $teams = lookup('pingdom::teams', Hash, 'hash', {})
-    $checks = lookup('pingdom::checks', Hash, 'hash', {})
+    $users = lookup('pingdom::users', Hash, 'deep', {})
+    $teams = lookup('pingdom::teams', Hash, 'deep', {})
+    $checks = lookup('pingdom::checks', Hash, 'deep', {})
 
     notify {"${checks}":}
 

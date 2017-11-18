@@ -1,17 +1,17 @@
 class pingdom {
     $defaults = {
-        'account_email' => hiera_hash('pingdom::account_email'),
-        'user_email'    => hiera_hash('pingdom::user_email'),
-        'password'      => hiera_hash('pingdom::password'),
-        'appkey'        => hiera_hash('pingdom::appkey')
-#        'log_level'     => hiera_hash('pingdom::log_level')
+        'account_email' => lookup('pingdom::account_email'),
+        'user_email'    => lookup('pingdom::user_email'),
+        'password'      => lookup('pingdom::password'),
+        'appkey'        => lookup('pingdom::appkey')
+#        'log_level'     => lookup('pingdom::log_level')
     }
 
-    # $users = hiera_hash('pingdom::users', {})
-    $teams = hiera_hash('pingdom::teams', {})
-    $checks = hiera_hash('pingdom::checks', {})
+    $users = lookup('pingdom::users', {})
+    $teams = lookup('pingdom::teams', {})
+    $checks = lookup('pingdom::checks', {})
 
-    # notify { "${users}": }
+    notify { "${users}": }
     notify { "${teams}": }
     notify { "${checks}": }
 

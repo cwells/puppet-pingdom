@@ -14,7 +14,7 @@ class pingdom {
 
     $users = lookup('pingdom::users', Hash, 'hash', {})
     $teams = lookup('pingdom::teams', Hash, 'hash', {})
-    $checks = lookup('pingdom::checks', Hash, 'hash', {})
+    $checks = lookup('pingdom::checks', Hash, 'deep', {})
 
     create_resources('pingdom_user', $users, $defaults)
     create_resources('pingdom_team', $teams, $defaults)

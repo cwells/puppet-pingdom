@@ -21,7 +21,7 @@ class pingdom {
     # notify { "${checks}": }
 
     create_resources('pingdom_user', $users, $defaults)
-    # create_resources('pingdom_team', $teams, $defaults)
+    create_resources('pingdom_team', $teams, $defaults)
     # create_resources('pingdom_check', $checks, $defaults)
 }
 

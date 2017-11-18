@@ -1,15 +1,15 @@
 class pingdom {
     $defaults = {
-        'account_email' => lookup('pingdom::account_email'),
-        'user_email'    => lookup('pingdom::user_email'),
-        'password'      => lookup('pingdom::password'),
-        'appkey'        => lookup('pingdom::appkey')
+        'account_email' => lookup('pingdom::account_email', String),
+        'user_email'    => lookup('pingdom::user_email', String),
+        'password'      => lookup('pingdom::password', String),
+        'appkey'        => lookup('pingdom::appkey', String)
 #        'log_level'     => lookup('pingdom::log_level')
     }
 
-    $users = lookup('pingdom::users', {})
-    $teams = lookup('pingdom::teams', {})
-    $checks = lookup('pingdom::checks', {})
+    $users = lookup('pingdom::users', Hash, 'hash')
+    $teams = lookup('pingdom::teams', Hash, 'hash')
+    $checks = lookup('pingdom::checks', Hash, 'hash')
 
     notify { "${users}": }
     notify { "${teams}": }

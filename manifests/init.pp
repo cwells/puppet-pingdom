@@ -7,7 +7,7 @@ class pingdom {
 #        'log_level'     => hiera_hash('pingdom::log_level')
     }
 
-    $users = hiera_hash('pingdom::users', {})
+    # $users = hiera_hash('pingdom::users', {})
     $teams = hiera_hash('pingdom::teams', {})
     $checks = hiera_hash('pingdom::checks', {})
 

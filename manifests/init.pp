@@ -2,9 +2,9 @@ class pingdom {
     $account_email = lookup('pingdom::account_email', String, 'hash', false)
 
     $common = {
-        'user_email' => lookup('pingdom::user_email', String),
-        'password'   => lookup('pingdom::password', String),
-        'appkey'     => lookup('pingdom::appkey', String)
+        'user_email' => lookup('pingdom::user_email', String, 'hash'),
+        'password'   => lookup('pingdom::password', String, 'hash'),
+        'appkey'     => lookup('pingdom::appkey', String, 'hash')
     }
 
     $defaults = $account_email ? {
@@ -19,7 +19,7 @@ class pingdom {
     notify { "${defaults}": }
     notify { "${users}": }
 
-    # create_resources('pingdom_user', $users, $defaults)
+    create_resources('pingdom_user', $users, $defaults)
     # create_resources('pingdom_team', $teams, $defaults)
     # create_resources('pingdom_check', $checks, $defaults)
 }

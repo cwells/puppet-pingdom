@@ -1,11 +1,11 @@
 class pingdom {
-    $account_email => lookup('pingdom::account_email', String, 'hash', false),
+    $account_email = lookup('pingdom::account_email', String, 'hash', false)
 
     $common = {
-        'user_email'    => lookup('pingdom::user_email', String),
-        'password'      => lookup('pingdom::password', String),
-        'appkey'        => lookup('pingdom::appkey', String)
-        'log_level'     => lookup('pingdom::log_level', String)
+        'user_email' => lookup('pingdom::user_email', String),
+        'password'   => lookup('pingdom::password', String),
+        'appkey'     => lookup('pingdom::appkey', String)
+        'log_level'  => lookup('pingdom::log_level', String)
     }
 
     $defaults = $account_email ? {

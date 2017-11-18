@@ -17,6 +17,7 @@ class pingdom {
     $checks = lookup('pingdom::checks', Hash, 'hash', {})
 
     notify { "${defaults}": }
+    notify { "${users}": }
 
     # create_resources('pingdom_user', $users, $defaults)
     # create_resources('pingdom_team', $teams, $defaults)

@@ -3,8 +3,8 @@ class pingdom {
         'account_email' => hiera_hash('pingdom::account_email'),
         'user_email'    => hiera_hash('pingdom::user_email'),
         'password'      => hiera_hash('pingdom::password'),
-        'appkey'        => hiera_hash('pingdom::appkey'),
-        'log_level'     => hiera_hash('pingdom::log_level')
+        'appkey'        => hiera_hash('pingdom::appkey')
+#        'log_level'     => hiera_hash('pingdom::log_level')
     }
 
     create_resources('pingdom_user',  hiera_hash('pingdom::users', {}),  $defaults)

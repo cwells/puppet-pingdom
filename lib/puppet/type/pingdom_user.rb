@@ -30,7 +30,7 @@ Puppet::Type.newtype(:pingdom_user) do
         desc 'API password [string].'
     end
 
-    newparam(:appkey) do
+    newparam('appkey') do
         desc 'API app key [string].'
     end
 
@@ -38,7 +38,7 @@ Puppet::Type.newtype(:pingdom_user) do
         desc 'YAML file containing Pingdom credentials [string]'
     end
 
-    newparam(:log_level) do
+    newparam('log_level') do
         desc 'Logging level for API requests [String (ERROR, WARN, INFO, DEBUG)]'
         newvalues(:error, :warn, :info, :debug)
         defaultto :error

@@ -7,8 +7,12 @@ class pingdom {
 #        'log_level'     => hiera_hash('pingdom::log_level')
     }
 
-    create_resources('pingdom_user',  hiera_hash('pingdom::users', {}),  $defaults)
-    create_resources('pingdom_team',  hiera_hash('pingdom::teams', {}),  $defaults)
-    create_resources('pingdom_check', hiera_hash('pingdom::checks', {}), $defaults)
+    $users = hiera_hash('pingdom::users', {})
+    $teams = hiera_hash('pingdom::teams', {})
+    $checks = hiera_hash('pingdom::checks', {})
+
+    create_resources('pingdom_user', $users, $defaults)
+    create_resources('pingdom_team', $teams, $defaults)
+    create_resources('pingdom_check', $checks, $defaults)
 }
 

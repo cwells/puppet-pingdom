@@ -33,6 +33,7 @@ class pingdom {
         tags => ['http'],
         users => ['SRE PagerDuty'],
         teams => ['SRE'],
+        autofilter => false,
         paused => true
     }
 

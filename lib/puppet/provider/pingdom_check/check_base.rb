@@ -199,5 +199,5 @@ Puppet::Type.type(:pingdom_check).provide(:check_base) do
         end
     end
 
-    accessorize
+    # accessorize
 end

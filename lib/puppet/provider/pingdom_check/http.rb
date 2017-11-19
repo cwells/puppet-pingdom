@@ -8,38 +8,6 @@ Puppet::Type.type(:pingdom_check).provide(:http, :parent => :check_base) do
                  :shouldnotcontain, :postdata, :requestheaders
     defaultfor :feature => :posix
 
-    def tags
-        usertags = @check.fetch('tags', []).map { |tag| tag['name'] if tag['type'] == 'u' }
-        usertags.delete @autotag
-        usertags
-    end
-
-    def tags=(value)
-        @property_hash[:tags] = @property_hash[:tags] + value
-    end
-
-    def users
-        # accepts list of ids, returns list of names
-        ids = @check.fetch('userids', nil)
-        user = api.select_users(ids, search='id') if ids
-        if user.respond_to? :map
-            user.map { |u| u['name'] }
-        else
-            :absent
-        end
-    end
-
-    def users=(value)
-        puts "USERS=#{value}"
-        # accepts list of names, returns list of ids
-        found = api.select_users(value, search='name')
-        raise 'Unknown user in list' unless found.size == value.size
-        ids = found.map { |u| u['id'] }
-        # newvalue = ids.join(',') if ids.respond_to? :join
-        @property_hash[:userids] = ids
-    end
-
-
     def auth
         begin
             username = @check['type']['http']['username']
@@ -117,6 +85,57 @@ Puppet::Type.type(:pingdom_check).provide(:http, :parent => :check_base) do
             :absent
         end
     end
+
+
+    #
+    # common
+    #
+    # def filter_tags=(value)
+    #     @property_hash[:tags] = [@property_hash[:tags], value].join(',')
+    # end
+
+    # def host
+    #     @check.fetch('hostname', :absent)
+    # end
+
+    # def paused
+    #      @check.fetch('status', :absent) == 'paused'
+    # end
+
+    # def probe_filters=(value)
+    #     newvalue = value.map { |v| 'region: ' + v }.join(',') if value.respond_to? :map
+    #     @property_hash[:probe_filters] = newvalue
+    # end
+
+    # def tags
+    #     usertags = @check.fetch('tags', []).map { |tag| tag['name'] if tag['type'] == 'u' }
+    #     usertags.delete @autotag
+    #     usertags
+    # end
+
+    # def tags=(value)
+    #     @property_hash[:tags] = @property_hash[:tags] + value
+    # end
+
+    # def users
+    #     # accepts list of ids, returns list of names
+    #     ids = @check.fetch('userids', nil)
+    #     user = api.select_users(ids, search='id') if ids
+    #     if user.respond_to? :map
+    #         user.map { |u| u['name'] }
+    #     else
+    #         :absent
+    #     end
+    # end
+
+    # def users=(value)
+    #     # accepts list of names, returns list of ids
+    #     found = api.select_users(value, search='name')
+    #     raise 'Unknown user in list' unless found.size == value.size
+    #     ids = found.map { |u| u['id'] }
+    #     @property_hash[:userids] = ids
+    # end
+
 
     accessorize
 end

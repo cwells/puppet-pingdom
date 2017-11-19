@@ -10,10 +10,8 @@ rescue LoadError
     has_pingdom_api = false
 end
 
-
 require 'uri'
 require 'digest'
-
 
 # require File.expand_path(File.join(File.dirname(__FILE__), 'check_base.rb'))
 

@@ -114,6 +114,7 @@ module PuppetX
                 response = @api.get "#{@@endpoint[:checks]}/#{check['id']}", {
                      :include_teams => true
                 }
+                puts "RESPONSE #{response}"
                 response['check']
                 nil
             end

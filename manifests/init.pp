@@ -28,7 +28,7 @@ class pingdom {
 
     pingdom_check { "http://${facts['fqdn']}/check":
         provider => 'http',
-        host => "${facts['fqdn']}"
+        host => "${facts['fqdn']}",
         url => '/check',
         tags => ['http'],
         users => ['SRE PagerDuty'],

@@ -33,7 +33,8 @@ class pingdom {
         tags => ['http'],
         users => ['SRE PagerDuty'],
         teams => ['SRE'],
-        paused => true
+        paused => true,
+        log_level => 'debug'
     }
 
     # create_resources('pingdom_user', $users, $defaults)

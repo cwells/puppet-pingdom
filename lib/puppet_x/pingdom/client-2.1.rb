@@ -110,12 +110,14 @@ module PuppetX
                 puts "FIND_CHECK IS NIL #{check.nil?}"
                 return nil if check.nil?
                 check = check.first
-                response = @api.get "#{@@endpoint[:checks]}/#{check['id']}", {
-                    :include_teams => true
-                }
-                puts "FIND_CHECK got response"
-                puts response['check']
-                response['check']
+                puts "CHECK IS #{check}"
+                # response = @api.get "#{@@endpoint[:checks]}/#{check['id']}", {
+                #     :include_teams => true
+                # }
+                # puts "FIND_CHECK got response"
+                # puts response['check']
+                # response['check']
+                nil
             end
 
             def create_check(params)

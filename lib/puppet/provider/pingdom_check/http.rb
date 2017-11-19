@@ -153,7 +153,7 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
     #
     def filter_tags=(value)
         # @property_hash[:tags] = [@property_hash[:tags], value].join(',')
-        # @property_hash[:tags] = @property_hash[:tags] + value
+        @property_hash[:tags] = @property_hash[:tags] + value
     end
 
     def host
@@ -166,7 +166,7 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
 
     def probe_filters=(value)
         newvalue = value.map { |v| 'region: ' + v }.join(',') if value.respond_to? :map
-        # @property_hash[:probe_filters] = newvalue
+        @property_hash[:probe_filters] = newvalue
     end
 
     def tags
@@ -208,7 +208,8 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
         # else
         #     :absent
         # end
-        ['SRE PagerDuty']
+        # ['SRE PagerDuty']
+        :absent
     end
 
     def users=(value)

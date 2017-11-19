@@ -152,7 +152,8 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
     # common accessors
     #
     def filter_tags=(value)
-        @property_hash[:tags] = [@property_hash[:tags], value].join(',')
+        # @property_hash[:tags] = [@property_hash[:tags], value].join(',')
+        @property_hash[:tags] = @property_hash[:tags] + value
     end
 
     def host

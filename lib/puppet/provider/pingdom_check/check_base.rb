@@ -54,45 +54,45 @@ Puppet::Type.type(:pingdom_check).provide(:check_base) do
         end
     end
 
-    def exists?
-        if [:true, :bootstrap].include? @resource[:autofilter]
-            @autotag ||= 'puppet-' + Digest::SHA1.hexdigest(@resource[:name])[0..5]
-            @resource[:filter_tags] = [@autotag] if @resource[:autofilter] != :bootstrap
-            @property_hash[:tags] = [@autotag]
-        else
-            @autotag = nil
-        end
+    # def exists?
+    #     if [:true, :bootstrap].include? @resource[:autofilter]
+    #         @autotag ||= 'puppet-' + Digest::SHA1.hexdigest(@resource[:name])[0..5]
+    #         @resource[:filter_tags] = [@autotag] if @resource[:autofilter] != :bootstrap
+    #         @property_hash[:tags] = [@autotag]
+    #     else
+    #         @autotag = nil
+    #     end
 
-        @check ||= api.find_check @resource[:name], @resource[:filter_tags]
-    end
+    #     @check ||= api.find_check @resource[:name], @resource[:filter_tags]
+    # end
 
-    def create
-        # Dummy method. Real work is done in `flush`.
-    end
+    # def create
+    #     # Dummy method. Real work is done in `flush`.
+    # end
 
-    def flush
-        if @resource[:ensure] == :absent
-            api.delete_check @check if @check
-            return
-        end
+    # def flush
+    #     if @resource[:ensure] == :absent
+    #         api.delete_check @check if @check
+    #         return
+    #     end
 
-        @resource.eachproperty do |prop|
-            prop = prop.to_s.to_sym
-            self.method("#{prop}=").call @resource[prop] if prop != :ensure
-        end
-        @property_hash[:name] = @resource[:name]
+    #     @resource.eachproperty do |prop|
+    #         prop = prop.to_s.to_sym
+    #         self.method("#{prop}=").call @resource[prop] if prop != :ensure
+    #     end
+    #     @property_hash[:name] = @resource[:name]
 
-        if @check
-            api.modify_check @check, @property_hash
-        else
-            @property_hash[:type] = @resource[:provider]
-            api.create_check @property_hash
-        end
-    end
+    #     if @check
+    #         api.modify_check @check, @property_hash
+    #     else
+    #         @property_hash[:type] = @resource[:provider]
+    #         api.create_check @property_hash
+    #     end
+    # end
 
-    def destroy
-        @resource[:ensure] = :absent
-    end
+    # def destroy
+    #     @resource[:ensure] = :absent
+    # end
 
     #
     # custom getters/setters

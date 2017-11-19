@@ -136,12 +136,11 @@ Puppet::Type.type(:pingdom_check).provide(:check_base) do
     end
 
     def teams=(value)
-        # # accepts list of names, returns list of ids
-        # teams = api.select_teams(value, search='name')
-        # raise 'Unknown team in list' unless teams.size == value.size
-        # ids = teams.map { |u| u['id'] }
-        # # newvalue = ids.join(',') if ids.respond_to? :join
-        # # @property_hash[:teamids] = ids
+        # accepts list of names, returns list of ids
+        teams = api.select_teams(value, search='name')
+        raise 'Unknown team in list' unless teams.size == value.size
+        ids = teams.map { |u| u['id'] }
+        @property_hash[:teamids] = ids
     end
 
     def users
@@ -156,13 +155,11 @@ Puppet::Type.type(:pingdom_check).provide(:check_base) do
     end
 
     def users=(value)
-        # puts "USERS=#{value}"
-        # # accepts list of names, returns list of ids
-        # found = api.select_users(value, search='name')
-        # raise 'Unknown user in list' unless found.size == value.size
-        # ids = found.map { |u| u['id'] }
-        # # newvalue = ids.join(',') if ids.respond_to? :join
-        # # @property_hash[:userids] = ids
+        # accepts list of names, returns list of ids
+        found = api.select_users(value, search='name')
+        raise 'Unknown user in list' unless found.size == value.size
+        ids = found.map { |u| u['id'] }
+        @property_hash[:userids] = ids
     end
 
     #
@@ -198,6 +195,4 @@ Puppet::Type.type(:pingdom_check).provide(:check_base) do
             end
         end
     end
-
-    # accessorize
 end

@@ -26,19 +26,19 @@ class pingdom {
         }
     }
 
-    pingdom_check { "http://${facts['fqdn']}/check":
-        account_email => $account_email,
-        user_email    => $common['user_email'],
-        password      => $common['password'],
-        appkey        => $common['appkey'],
-        provider      => 'http',
-        host          => "${facts['fqdn']}",
-        url           => '/check',
-        tags          => ['http'],
-        users         => ['SRE PagerDuty'],
-        # teams         => ['SRE'],
-        paused        => true
-    }
+    # pingdom_check { "http://${facts['fqdn']}/check":
+    #     account_email => $account_email,
+    #     user_email    => $common['user_email'],
+    #     password      => $common['password'],
+    #     appkey        => $common['appkey'],
+    #     provider      => 'http',
+    #     host          => "${facts['fqdn']}",
+    #     url           => '/check',
+    #     tags          => ['http'],
+    #     users         => ['SRE PagerDuty'],
+    #     # teams         => ['SRE'],
+    #     paused        => true
+    # }
 
     # create_resources('pingdom_user', $users, $defaults)
     # create_resources('pingdom_team', $teams, $defaults)

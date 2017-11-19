@@ -115,6 +115,7 @@ module PuppetX
                      :include_teams => true
                 }
                 response['check']
+                nil
             end
 
             def create_check(params)

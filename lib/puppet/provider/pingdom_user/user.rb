@@ -17,9 +17,6 @@ rescue LoadError
     has_pingdom_api = false
 end
 
-require 'uri'
-require 'digest'
-
 Puppet::Type.type(:pingdom_user).provide(:user) do
     confine :true => has_pingdom_api
 

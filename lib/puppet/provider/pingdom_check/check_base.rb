@@ -13,6 +13,8 @@
 # Homepage: https://github.com/cwells/puppet-pingdom
 #
 
+require 'digest'
+
 begin # require PuppetX module
     require File.expand_path( # yes, this is the recommended way :P
         File.join(

@@ -173,8 +173,7 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
         puts "@AUTOTAG #{@autotag}"
         usertags.delete @autotag
         puts "TAGS: #{usertags}"
-        # usertags
-        []
+        usertags
     end
 
     def tags=(value)

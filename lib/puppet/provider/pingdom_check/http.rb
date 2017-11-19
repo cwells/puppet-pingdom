@@ -135,21 +135,23 @@ Puppet::Type.type(:pingdom_check).provide(:http, :parent => :check_base) do
 
     def users
         # accepts list of ids, returns list of names
-        ids = @check.fetch('userids', nil)
-        user = api.select_users(ids, search='id') if ids
-        if user.respond_to? :map
-            user.map { |u| u['name'] }
-        else
-            :absent
-        end
+        # ids = @check.fetch('userids', nil)
+        # user = api.select_users(ids, search='id') if ids
+        # if user.respond_to? :map
+        #     user.map { |u| u['name'] }
+        # else
+        #     :absent
+        # end
+        :absent
     end
 
     def users=(value)
+        puts "USERS=#{value}"
         # accepts list of names, returns list of ids
-        found = api.select_users(value, search='name')
-        raise 'Unknown user in list' unless found.size == value.size
-        ids = found.map { |u| u['id'] }
-        puts "IDS: #{ids}"
+        # found = api.select_users(value, search='name')
+        # raise 'Unknown user in list' unless found.size == value.size
+        # ids = found.map { |u| u['id'] }
+        # puts "IDS: #{ids}"
         # @property_hash[:userids] = ids
     end
 

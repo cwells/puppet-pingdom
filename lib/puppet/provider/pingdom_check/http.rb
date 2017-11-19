@@ -1,3 +1,5 @@
+puts File.expand_path(File.join(File.dirname(__FILE__), '.', 'check_base.rb'))
+
 require File.expand_path(File.join(File.dirname(__FILE__), '.', 'check_base.rb'))
 
 require 'uri'

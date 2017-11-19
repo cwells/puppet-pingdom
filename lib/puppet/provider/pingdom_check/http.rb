@@ -19,6 +19,7 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
     defaultfor :feature => :posix
 
     require 'uri'
+    require 'digest'
 
     def auth
         begin

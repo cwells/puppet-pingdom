@@ -21,6 +21,7 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
     has_features :port, :url, :auth, :encryption, :shouldcontain,
                  :shouldnotcontain, :postdata, :requestheaders
     defaultfor :feature => :posix
+    confine :true => has_pingdom_api
 
     def auth
         begin
@@ -135,8 +136,7 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
             @autotag = nil
         end
 
-        # @check ||= api.find_check @resource[:name], @resource[:filter_tags]
-        @check = {}
+        @check ||= api.find_check @resource[:name], @resource[:filter_tags]
     end
 
     def create

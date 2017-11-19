@@ -36,7 +36,7 @@ class pingdom {
         url           => '/check',
         tags          => ['http', 'anothertag'],
         users         => ['SRE PagerDuty'],
-        teams         => ['SRE'],
+        # teams         => ['SRE'],
         paused        => true
     }
 

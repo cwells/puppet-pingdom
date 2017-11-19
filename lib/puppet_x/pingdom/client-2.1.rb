@@ -113,7 +113,7 @@ module PuppetX
                 response = @api.get "#{@@endpoint[:checks]}/#{check['id']}", {
                     :include_teams => true
                 }
-                puts "FIND_CHECK got response #{response['check']}"
+                puts "FIND_CHECK got response #{response['check'].to_s}"
                 response['check']
             end
 

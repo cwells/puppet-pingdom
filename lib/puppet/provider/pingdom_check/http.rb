@@ -176,7 +176,7 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
 
     def tags=(value)
         puts "tags= #{@property_hash[:tags]} #{value}"
-        @property_hash[:tags] = (@property_hash[:tags] + value).join ','
+        # @property_hash[:tags] = @property_hash[:tags] + value
     end
 
     def teams

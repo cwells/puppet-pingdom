@@ -40,7 +40,6 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
         end
 
         @check ||= api.find_check @resource[:name], @resource[:filter_tags]
-        puts "HERE"
     end
 
     def create

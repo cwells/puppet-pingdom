@@ -14,7 +14,7 @@ rescue LoadError
     has_pingdom_api = false
 end
 
-Puppet::Type.type(:pingdom_check).provide(:http, :parent => :check_base) do
+Puppet::Type.type(:pingdom_check).provide(:http) do
     has_features :port, :url, :auth, :encryption, :shouldcontain,
                  :shouldnotcontain, :postdata, :requestheaders
     defaultfor :feature => :posix

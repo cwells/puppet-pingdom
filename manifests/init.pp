@@ -17,6 +17,7 @@ class pingdom {
     $checks = lookup('pingdom::checks', Hash, 'hash', {})
 
     pingdom_user { 'SRE PagerDuty':
+        ensure        => present,
         account_email => $account_email,
         user_email    => $common['user_email'],
         password      => $common['password'],
@@ -27,6 +28,7 @@ class pingdom {
     }
 
     pingdom_team { 'SRE':
+        ensure        => present,
         account_email => $account_email,
         user_email    => $common['user_email'],
         password      => $common['password'],
@@ -43,6 +45,7 @@ class pingdom {
     }
 
     pingdom_check { "http://${facts['fqdn']}/check":
+        ensure        => present,
         provider      => 'http',
         host          => "${facts['fqdn']}",
         url           => '/check',

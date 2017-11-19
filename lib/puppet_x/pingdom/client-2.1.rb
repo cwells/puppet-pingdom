@@ -106,6 +106,7 @@ module PuppetX
             def find_check(name, filter_tags)
                 # returns check or nil
                 check = checks(filter_tags).select { |check| check['name'] == name }
+                puts "CHECK IS #{check}"
                 return nil if check.nil?
                 puts "FOUND!"
                 return nil

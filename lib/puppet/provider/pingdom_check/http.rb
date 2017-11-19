@@ -199,6 +199,7 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
     end
 
     def users
+        puts "USERS"
         # accepts list of ids, returns list of names
         # ids = @check.fetch('userids', nil)
         # user = api.select_users(ids, search='id') if ids
@@ -207,11 +208,11 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
         # else
         #     :absent
         # end
-        []
+        ['SRE PagerDuty']
     end
 
     def users=(value)
-        # puts "USERS=#{value}"
+        puts "USERS=#{value}"
         # accepts list of names, returns list of ids
         # found = api.select_users(value, search='name')
         # raise 'Unknown user in list' unless found.size == value.size

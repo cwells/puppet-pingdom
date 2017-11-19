@@ -170,8 +170,8 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
 
     def tags
         usertags = @check.fetch('tags', []).map { |tag| tag['name'] if tag['type'] == 'u' }
-        # usertags.delete @autotag
-        # puts "TAGS: #{usertags}"
+        usertags.delete @autotag
+        puts "TAGS: #{usertags}"
         # usertags
         []
     end

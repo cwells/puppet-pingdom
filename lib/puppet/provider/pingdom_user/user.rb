@@ -17,7 +17,7 @@ rescue LoadError
     has_pingdom_api = false
 end
 
-Puppet::Type.type(:pingdom_user).provide(:user) do
+Puppet::Type.type(:pingdom_user).provide(:user, :parent => :check_base) do
     confine :true => has_pingdom_api
 
     def api

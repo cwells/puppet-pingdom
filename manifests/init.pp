@@ -27,13 +27,12 @@ class pingdom {
     # }
 
     pingdom_check { "http://${facts['fqdn']}/check":
-        provider => 'http',
+        provider => 'check_base',
         host => "${facts['fqdn']}",
-        url => '/check',
+        # url => '/check',
         tags => ['http'],
         users => ['SRE PagerDuty'],
         teams => ['SRE'],
-        autofilter => false,
         paused => true
     }
 

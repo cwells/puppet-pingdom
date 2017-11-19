@@ -34,11 +34,15 @@ class pingdom {
         users         => ['SRE PagerDuty']
     }
 
-    pingdom_check { "http://${facts['fqdn']}/check":
+    Pingdom_check {
         account_email => $account_email,
         user_email    => $common['user_email'],
         password      => $common['password'],
         appkey        => $common['appkey'],
+        autofilter => true
+    }
+
+    pingdom_check { "http://${facts['fqdn']}/check":
         provider      => 'http',
         host          => "${facts['fqdn']}",
         url           => '/check',

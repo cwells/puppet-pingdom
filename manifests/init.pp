@@ -31,13 +31,13 @@ class pingdom {
         user_email    => $common['user_email'],
         password      => $common['password'],
         appkey        => $common['appkey'],
-        provider => 'http',
-        host => "${facts['fqdn']}",
-        url => '/check',
-        tags => ['http', 'anothertag'],
-        #users => ['SRE PagerDuty'],
-        # teams => ['SRE'],
-        paused => true
+        provider      => 'http',
+        host          => "${facts['fqdn']}",
+        url           => '/check',
+        tags          => ['http', 'anothertag'],
+        users         => ['SRE PagerDuty'],
+        teams         => ['SRE'],
+        paused        => true
     }
 
     # create_resources('pingdom_user', $users, $defaults)

@@ -140,8 +140,8 @@ Puppet::Type.type(:pingdom_check).provide(:check_base) do
         teams = api.select_teams(value, search='name')
         raise 'Unknown team in list' unless teams.size == value.size
         ids = teams.map { |u| u['id'] }
-        newvalue = ids.join(',') if ids.respond_to? :join
-        @property_hash[:teamids] = newvalue
+        # newvalue = ids.join(',') if ids.respond_to? :join
+        @property_hash[:teamids] = ids
     end
 
     def users

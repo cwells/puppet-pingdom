@@ -35,12 +35,12 @@ class pingdom {
     }
 
     pingdom_check { "http://${facts['fqdn']}/check":
-        autotag       => true,
         account_email => $account_email,
         user_email    => $common['user_email'],
         password      => $common['password'],
         appkey        => $common['appkey'],
         provider      => 'http',
+        autotag       => true,
         host          => "${facts['fqdn']}",
         url           => '/check',
         # tags          => ['http'],

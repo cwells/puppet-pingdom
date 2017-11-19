@@ -7,7 +7,6 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
     has_features :port, :url, :auth, :encryption, :shouldcontain,
                  :shouldnotcontain, :postdata, :requestheaders
     defaultfor :feature => :posix
-    confine :true => has_pingdom_api
 
     def auth
         begin

@@ -109,13 +109,14 @@ module PuppetX
                 check = checks(filter_tags).select { |check| check['name'] == name } [0]
                 puts "FIND_CHECK IS NIL #{check.nil?}"
                 return nil if check.nil?
-                puts "FIND_CHECK calling api"
-                response = @api.get "#{@@endpoint[:checks]}/#{check['id']}", {
-                    :include_teams => true
-                }
-                puts "FIND_CHECK got response"
-                puts response['check']
-                response['check']
+                return nil
+                # puts "FIND_CHECK calling api"
+                # response = @api.get "#{@@endpoint[:checks]}/#{check['id']}", {
+                #     :include_teams => true
+                # }
+                # puts "FIND_CHECK got response"
+                # puts response['check']
+                # response['check']
             end
 
             def create_check(params)
@@ -125,8 +126,7 @@ module PuppetX
 
             def modify_check(check, params)
                 # puts "MODIFY_CHECK #{params}"
-                # @api.put "#{@@endpoint[:checks]}/#{check['id']}", params
-                check
+                @api.put "#{@@endpoint[:checks]}/#{check['id']}", params
             end
 
             def delete_check(check)

@@ -26,7 +26,7 @@ class pingdom {
     #     }
     # }
 
-    pingdom_check { "http://${facts['fqdn']}/status":
+    pingdom_check { "http://${facts['fqdn']}/check":
         provider => 'http',
         host => "${facts['fqdn']}",
         url => '/check',
@@ -36,8 +36,8 @@ class pingdom {
         paused => true
     }
 
-    create_resources('pingdom_user', $users, $defaults)
-    create_resources('pingdom_team', $teams, $defaults)
+    # create_resources('pingdom_user', $users, $defaults)
+    # create_resources('pingdom_team', $teams, $defaults)
     # create_resources('pingdom_check', $checks, $defaults)
 }
 

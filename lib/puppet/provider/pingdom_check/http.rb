@@ -179,24 +179,24 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
         @property_hash[:tags] = @property_hash[:tags] + value
     end
 
-    # def teams
-    #     # accepts list of ids, returns list of names
-    #     ids = @check.fetch('teams', nil).map { |i| i['id'].to_s }
-    #     team = api.select_teams(ids, search='id') if ids
-    #     if team.respond_to? :map
-    #         team.map { |u| u['name'] }
-    #     else
-    #         :absent
-    #     end
-    # end
+    def teams
+        # accepts list of ids, returns list of names
+        ids = @check.fetch('teams', nil).map { |i| i['id'].to_s }
+        team = api.select_teams(ids, search='id') if ids
+        if team.respond_to? :map
+            team.map { |u| u['name'] }
+        else
+            :absent
+        end
+    end
 
-    # def teams=(value)
-    #     # accepts list of names, returns list of ids
-    #     teams = api.select_teams(value, search='name')
-    #     raise 'Unknown team in list' unless teams.size == value.size
-    #     ids = teams.map { |u| u['id'] }
-    #     @property_hash[:teamids] = ids
-    # end
+    def teams=(value)
+        # accepts list of names, returns list of ids
+        teams = api.select_teams(value, search='name')
+        raise 'Unknown team in list' unless teams.size == value.size
+        ids = teams.map { |u| u['id'] }
+        @property_hash[:teamids] = ids
+    end
 
     def users
         # accepts list of ids, returns list of names

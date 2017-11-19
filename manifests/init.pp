@@ -26,6 +26,16 @@ class pingdom {
         }
     }
 
+    pingdom_team { 'SRE':
+        account_email => $account_email,
+        user_email    => $common['user_email'],
+        password      => $common['password'],
+        appkey        => $common['appkey'],
+        users => {
+            'SRE PagerDuty'
+        }
+    }
+
     pingdom_check { "http://${facts['fqdn']}/check":
         account_email => $account_email,
         user_email    => $common['user_email'],
@@ -35,8 +45,8 @@ class pingdom {
         host          => "${facts['fqdn']}",
         url           => '/check',
         tags          => ['http'],
-        users         => ['SRE PagerDuty'],
-        # teams         => ['SRE'],
+        # users         => ['SRE PagerDuty'],
+        teams         => ['SRE'],
         paused        => true
     }
 

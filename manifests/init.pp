@@ -31,9 +31,7 @@ class pingdom {
         user_email    => $common['user_email'],
         password      => $common['password'],
         appkey        => $common['appkey'],
-        users => {
-            'SRE PagerDuty'
-        }
+        users         => ['SRE PagerDuty']
     }
 
     pingdom_check { "http://${facts['fqdn']}/check":

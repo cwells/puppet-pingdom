@@ -111,7 +111,6 @@ Puppet::Type.type(:pingdom_check).provide(:http, :parent => :check_base) do
     end
 
     def tags=(value)
-        puts "TAGS= #{value}"
         @property_hash[:tags] = @property_hash[:tags] + value
     end
 
@@ -150,7 +149,8 @@ Puppet::Type.type(:pingdom_check).provide(:http, :parent => :check_base) do
         found = api.select_users(value, search='name')
         raise 'Unknown user in list' unless found.size == value.size
         ids = found.map { |u| u['id'] }
-        @property_hash[:userids] = ids
+        puts "IDS: #{ids}"
+        # @property_hash[:userids] = ids
     end
 
     accessorize

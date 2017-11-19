@@ -154,7 +154,7 @@ Puppet::Type.newtype(:pingdom_check) do
                 when :absent
                     should.nil?
                 else
-                    should.nil? or is.sort == should.sort
+                    should.nil? || is.sort == should.sort
             end
         end
 
@@ -170,10 +170,10 @@ Puppet::Type.newtype(:pingdom_check) do
 
         def insync?(is)
             case is
-                when :absent
-                    should.nil?
-                else
-                    should.nil? or is.sort == should.sort
+            when :absent
+                should.nil?
+            else
+                should.nil? || is.sort == should.sort
             end
         end
     end
@@ -183,10 +183,10 @@ Puppet::Type.newtype(:pingdom_check) do
 
         def insync?(is)
             case is
-                when :absent
-                    should.nil?
-                else
-                    should.nil? || is.sort == should.sort
+            when :absent
+                should.nil?
+            else
+                should.nil? || is.sort == should.sort
             end
         end
     end

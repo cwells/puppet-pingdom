@@ -240,7 +240,6 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
             next if prop == :name
 
             if !method_defined?(prop)
-                puts "METHOD: #{prop}"
                 define_method(prop) do
                     @check.fetch(prop.to_s, :absent)
                 end
@@ -248,7 +247,6 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
 
             setter = "#{prop}=".to_sym
             if !method_defined?(setter)
-                puts "METHOD: #{setter}"
                 define_method(setter) do |value|
                     @property_hash[prop] = value
                 end

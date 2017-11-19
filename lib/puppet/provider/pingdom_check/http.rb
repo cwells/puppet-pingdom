@@ -3,7 +3,7 @@ require 'digest'
 
 require File.expand_path(File.join(File.dirname(__FILE__), 'check_base.rb'))
 
-Puppet::Type.type(:pingdom_check).provide(:http) do
+Puppet::Type.type(:pingdom_check).provide(:http, :parent => :check_base) do
     has_features :port, :url, :auth, :encryption, :shouldcontain,
                  :shouldnotcontain, :postdata, :requestheaders
     defaultfor :feature => :posix

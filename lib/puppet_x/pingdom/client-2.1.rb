@@ -108,7 +108,7 @@ module PuppetX
                 puts "CHECKS #{checks}"
                 check = checks(filter_tags).select { |check| check['name'] == name }[0]
                 puts "CHECK IS #{check}"
-                return nil if check.empty?
+                return nil if check.nil?
                 puts "FOUND!"
                 return nil
                 response = @api.get "#{@@endpoint[:checks]}/#{check['id']}", {

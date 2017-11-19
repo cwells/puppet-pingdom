@@ -20,7 +20,7 @@ class pingdom {
         account_email => $account_email,
         user_email    => $common['user_email'],
         password      => $common['password'],
-        appkey        => $common['appkey']
+        appkey        => $common['appkey'],
         contact_targets => {
             email => 'sre@focusvision.com'
         }

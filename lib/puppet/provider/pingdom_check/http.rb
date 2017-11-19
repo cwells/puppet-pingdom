@@ -219,7 +219,7 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
         raise 'Unknown user in list' unless found.size == value.size
         ids = found.map { |u| u['id'] }
         puts "IDS: #{ids}"
-        @property_hash[:userids] = ids
+        @property_hash[:userids] = ids.join ','
     end
 
     #

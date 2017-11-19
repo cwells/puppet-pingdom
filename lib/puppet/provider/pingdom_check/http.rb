@@ -9,14 +9,15 @@ Puppet::Type.type(:pingdom_check).provide(:http, :parent => :check_base) do
     defaultfor :feature => :posix
 
     def users
-        # accepts list of ids, returns list of names
-        ids = @check.fetch('userids', nil)
-        user = api.select_users(ids, search='id') if ids
-        if user.respond_to? :map
-            user.map { |u| u['name'] }
-        else
-            :absent
-        end
+        # # accepts list of ids, returns list of names
+        # ids = @check.fetch('userids', nil)
+        # user = api.select_users(ids, search='id') if ids
+        # if user.respond_to? :map
+        #     user.map { |u| u['name'] }
+        # else
+        #     :absent
+        # end
+        :absent
     end
 
     def users=(value)

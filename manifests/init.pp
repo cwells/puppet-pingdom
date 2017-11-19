@@ -26,8 +26,18 @@ class pingdom {
     #     }
     # }
 
+    pingdom_check { "http://${facts['fqdn']}/check":
+        provider => 'http',
+        host => "${facts['fqdn']}"
+        url => '/check',
+        tags => ['http'],
+        users => ['SRE PagerDuty'],
+        teams => ['SRE'],
+        paused => true
+    }
+
     create_resources('pingdom_user', $users, $defaults)
     create_resources('pingdom_team', $teams, $defaults)
-    create_resources('pingdom_check', $checks, $defaults)
+    # create_resources('pingdom_check', $checks, $defaults)
 }
 

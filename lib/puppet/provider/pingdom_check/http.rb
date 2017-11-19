@@ -210,7 +210,7 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
         # else
         #     :absent
         # end
-        :absent
+        []
     end
 
     def users=(value)
@@ -220,7 +220,6 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
         # ids = found.map { |u| u['id'] }
         # puts "IDS: #{ids}"
         # @property_hash[:userids] = ids.join ','
-        @property_hash[:userids] = ''
     end
 
     #

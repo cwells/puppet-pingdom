@@ -40,7 +40,7 @@ class pingdom {
         password      => $common['password'],
         appkey        => $common['appkey'],
         provider      => 'http',
-        autotag       => true,
+        # autotag       => true,
         host          => "${facts['fqdn']}",
         url           => '/check',
         # tags          => ['http'],

@@ -16,15 +16,15 @@ class pingdom {
     $teams = lookup('pingdom::teams', Hash, 'hash', {})
     $checks = lookup('pingdom::checks', Hash, 'hash', {})
 
-    # pingdom_user { 'SRE PagerDuty':
-    #     account_email => $account_email,
-    #     user_email    => $common['user_email'],
-    #     password      => $common['password'],
-    #     appkey        => $common['appkey'],
-    #     contact_targets => {
-    #         email => 'sre@focusvision.com'
-    #     }
-    # }
+    pingdom_user { 'SRE PagerDuty':
+        account_email => $account_email,
+        user_email    => $common['user_email'],
+        password      => $common['password'],
+        appkey        => $common['appkey'],
+        contact_targets => {
+            email => 'sre@focusvision.com'
+        }
+    }
 
     pingdom_check { "http://${facts['fqdn']}/check":
         account_email => $account_email,

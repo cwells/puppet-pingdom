@@ -111,11 +111,11 @@ module PuppetX
                 return nil if check.empty?
                 puts "FOUND!"
                 return nil
-                check = check.first
-                response = @api.get "#{@@endpoint[:checks]}/#{check['id']}", {
-                     :include_teams => true
-                }
-                response['check']
+                # check = check.first
+                # response = @api.get "#{@@endpoint[:checks]}/#{check['id']}", {
+                #      :include_teams => true
+                # }
+                # response['check']
             end
 
             def create_check(params)

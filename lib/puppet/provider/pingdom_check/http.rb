@@ -33,8 +33,8 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
     def exists?
         if [:true, :bootstrap].include? @resource[:autofilter]
             @autotag ||= 'puppet-' + Digest::SHA1.hexdigest(@resource[:name])[0..5]
-            # @resource[:filter_tags] = [@autotag] if @resource[:autofilter] != :bootstrap
-            # @property_hash[:tags] = @autotag
+            @resource[:filter_tags] = [@autotag] if @resource[:autofilter] != :bootstrap
+            @property_hash[:tags] = @autotag
         else
             @autotag = nil
         end

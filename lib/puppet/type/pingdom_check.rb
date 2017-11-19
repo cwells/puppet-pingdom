@@ -186,7 +186,7 @@ Puppet::Type.newtype(:pingdom_check) do
                 when :absent
                     should.nil?
                 else
-                    should.nil? or is.sort == should.sort
+                    should.nil? || is.sort == should.sort
             end
         end
     end

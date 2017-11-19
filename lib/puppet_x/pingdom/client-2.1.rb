@@ -124,7 +124,7 @@ module PuppetX
             end
 
             def modify_check(check, params)
-                puts "MODIFY_CHECK #{params}"
+                puts "MODIFY_CHECK #{check} #{params}"
                 # @api.put "#{@@endpoint[:checks]}/#{check['id']}", params
             end
 

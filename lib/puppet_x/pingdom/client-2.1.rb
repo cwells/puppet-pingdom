@@ -114,6 +114,7 @@ module PuppetX
                     :include_teams => true
                 }
                 puts "FIND_CHECK got response"
+                puts response['check']
                 response['check']
             end
 

@@ -210,7 +210,7 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
         # else
         #     :absent
         # end
-        []
+        :absent
     end
 
     def users=(value)

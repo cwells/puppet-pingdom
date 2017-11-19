@@ -116,7 +116,6 @@ module PuppetX
                 }
                 puts "RESPONSE #{response}"
                 response['check']
-                nil
             end
 
             def create_check(params)
@@ -127,7 +126,7 @@ module PuppetX
 
             def modify_check(check, params)
                 puts "MODIFY_CHECK #{check} #{params}"
-                # @api.put "#{@@endpoint[:checks]}/#{check['id']}", params
+                @api.put "#{@@endpoint[:checks]}/#{check['id']}", params
             end
 
             def delete_check(check)

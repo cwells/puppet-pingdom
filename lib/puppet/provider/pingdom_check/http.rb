@@ -135,7 +135,8 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
             @autotag = nil
         end
 
-        @check ||= api.find_check @resource[:name], @resource[:filter_tags]
+        # @check ||= api.find_check @resource[:name], @resource[:filter_tags]
+        @check = nil
     end
 
     def create

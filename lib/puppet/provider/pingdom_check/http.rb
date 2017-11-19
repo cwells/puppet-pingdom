@@ -1,3 +1,7 @@
+path = File.expand_path(File.join(File.dirname(__FILE__), 'check_base.rb'))
+
+raise "can't find #{path}" unless File.exists? path
+
 require File.expand_path(File.join(File.dirname(__FILE__), 'check_base.rb'))
 
 require 'uri'

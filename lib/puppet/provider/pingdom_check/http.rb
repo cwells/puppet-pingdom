@@ -55,6 +55,7 @@ Puppet::Type.type(:pingdom_check).provide(:http, :parent => :check_base) do
     end
 
     def tags=(value)
+        puts "TAGS: #{@property_hash[:tags]}, VALUE: #{value}"
         # @property_hash[:tags] = (@property_hash[:tags] + value).join(',')
     end
 

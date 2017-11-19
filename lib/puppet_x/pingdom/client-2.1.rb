@@ -99,7 +99,7 @@ module PuppetX
                         :include_tags => true,
                         :tags => filter_tags.join(',')
                     }
-                    response['checks']
+                    response.fetch('checks', [])
                 end
             end
 

@@ -8,6 +8,16 @@ Puppet::Type.type(:pingdom_check).provide(:http, :parent => :check_base) do
                  :shouldnotcontain, :postdata, :requestheaders
     defaultfor :feature => :posix
 
+    def tags
+        usertags = @check.fetch('tags', []).map { |tag| tag['name'] if tag['type'] == 'u' }
+        usertags.delete @autotag
+        usertags
+    end
+
+    def tags=(value)
+        @property_hash[:tags] = @property_hash[:tags] + value
+    end
+
     def users
         # # accepts list of ids, returns list of names
         # ids = @check.fetch('userids', nil)

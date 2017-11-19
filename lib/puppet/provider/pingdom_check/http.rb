@@ -51,10 +51,10 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
             return
         end
 
-        # @resource.eachproperty do |prop|
-        #     prop = prop.to_s.to_sym
+        @resource.eachproperty do |prop|
+             prop = prop.to_s.to_sym
         #     self.method("#{prop}=").call @resource[prop] if prop != :ensure
-        # end
+        end
         @property_hash[:name] = @resource[:name]
 
         if @check

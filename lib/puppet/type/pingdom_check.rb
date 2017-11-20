@@ -165,7 +165,7 @@ Puppet::Type.newtype(:pingdom_check) do
     #     end
     # end
 
-    newproperty('teams', :array_matching=>:all) do
+    newproperty(:teams, :array_matching=>:all) do
         desc 'Team names [list of strings].'
 
         # def insync?(is)

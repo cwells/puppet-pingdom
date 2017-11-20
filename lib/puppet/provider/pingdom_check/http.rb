@@ -212,7 +212,7 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
 
     def users
         # accepts list of ids, returns list of names
-        return []
+        return :absent
         ids = @check.fetch('userids', nil)
         user = api.select_users(ids, search='id') if ids
         if user.respond_to? :map

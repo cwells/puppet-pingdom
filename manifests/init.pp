@@ -37,19 +37,13 @@ class pingdom {
     }
 
     pingdom_check { "http://${facts['fqdn']}/check":
-        account_email => $account_email,
-        user_email    => $common['user_email'],
-        password      => $common['password'],
-        appkey        => $common['appkey'],
-        ensure        => present,
-        provider      => 'http',
-        host          => "${facts['fqdn']}",
-        url           => '/check',
-        # tags          => ['http'],
-        # contacts      => ['SRE PagerDuty'],
-        teams         => ['SRE'],
-        paused        => true,
-        log_level     => 'debug'
+        ensure           => present,
+        provider         => 'http',
+        host             => $facts['fqdn'],
+        url              => '/check',
+        tags             => ['http'],
+        teams            => ['SRE'],
+        contacts         => ['SRE PagerDuty']
     }
 
     # create_resources('pingdom_user', $users, $defaults)

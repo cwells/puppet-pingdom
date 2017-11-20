@@ -191,7 +191,7 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
         @property_hash[:tags] = value.join ','
     end
 
-    def teams
+    def fuckme
         puts "TEAMS"
         return []
         # accepts list of ids, returns list of names
@@ -204,7 +204,7 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
         # end
     end
 
-    def teams=(value)
+    def fuckme=(value)
         puts "TEAMS="
         # accepts list of names, returns list of ids
         # teams = api.select_teams(value, search='name')

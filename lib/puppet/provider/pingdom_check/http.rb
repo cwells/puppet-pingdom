@@ -191,9 +191,9 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
         @property_hash[:tags] = value.join ','
     end
 
-    def teams
+    def team_contacts
         puts "TEAMS"
-        return :absent
+        return []
         # accepts list of ids, returns list of names
         # ids = @check.fetch('teams', []).map { |i| i['id'].to_s }
         # team = api.select_teams(ids, search='id') if ids
@@ -204,7 +204,7 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
         # end
     end
 
-    def teams=(value)
+    def team_contacts=(value)
         puts "TEAMS="
         # accepts list of names, returns list of ids
         # teams = api.select_teams(value, search='name')

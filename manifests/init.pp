@@ -45,9 +45,9 @@ class pingdom {
         provider      => 'http',
         host          => "${facts['fqdn']}",
         url           => '/check',
-        tags          => ['http'],
-        contacts      => ['SRE PagerDuty'],
-        team_contacts         => ['SRE'],
+        # tags          => ['http'],
+        # contacts      => ['SRE PagerDuty'],
+        teams         => ['SRE'],
         paused        => true
     }
 

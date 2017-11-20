@@ -105,7 +105,7 @@ Puppet::Type.type(:pingdom_check).provide(:check_base) do
         @resource[:ensure] = :absent
     end
 
-        #
+    #
     # common accessors
     #
     def filter_tags=(value)
@@ -203,4 +203,6 @@ Puppet::Type.type(:pingdom_check).provide(:check_base) do
             end
         end
     end
+
+    accessorize
 end

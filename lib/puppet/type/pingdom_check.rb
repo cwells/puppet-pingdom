@@ -69,36 +69,9 @@ Puppet::Type.newtype(:pingdom_check) do
     #
     # common properties
     #
-    newproperty(:teams, :array_matching=>:all) do
-        desc 'Team names [list of strings].'
-        defaultto []
-
-        # def insync?(is)
-        #     case is
-        #     when :absent
-        #         should.nil?
-        #     else
-        #         should.nil? || is.sort == should.sort
-        #     end
-        # end
-    end
-
     newproperty(:host) do
         desc 'HTTP hostname or IP to check [string]'
     end
-
-    # newproperty(:integrations, :array_matching=>:all) do
-    #     desc 'Integration names [list of strings].'
-
-    #     def insync?(is)
-    #         case is
-    #         when :absent
-    #             should.nil?
-    #         else
-    #             should.nil? || is.sort == should.sort
-    #         end
-    #     end
-    # end
 
     newproperty(:ipv6) do
         desc %q(Use ipv6 instead of ipv4. If an IP address is provided as `host` this
@@ -175,6 +148,20 @@ Puppet::Type.newtype(:pingdom_check) do
         validate do |value|
             if value.match /[^a-zA-Z0-9_-]+/
                 raise 'Tags can only include alphanumeric, underscore, and hyphen characters.'
+            end
+        end
+    end
+
+    newproperty(:teams, :array_matching=>:all) do
+        desc 'Team names [list of strings].'
+        defaultto []
+
+        def insync?(is)
+            case is
+            when :absent
+                should.nil?
+            else
+                should.nil? || is.sort == should.sort
             end
         end
     end

@@ -193,6 +193,7 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
 
     def teams
         puts "TEAMS"
+        return :absent
         # accepts list of ids, returns list of names
         # ids = @check.fetch('teams', []).map { |i| i['id'].to_s }
         # team = api.select_teams(ids, search='id') if ids

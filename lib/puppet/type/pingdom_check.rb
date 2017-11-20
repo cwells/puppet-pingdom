@@ -146,24 +146,24 @@ Puppet::Type.newtype(:pingdom_check) do
                 threshold specified in ms [integer])
     end
 
-    newproperty(:tags, :array_matching=>:all) do
-        desc 'Check tags [list of strings].'
+    # newproperty(:tags, :array_matching=>:all) do
+    #     desc 'Check tags [list of strings].'
 
-        def insync?(is)
-            case is
-            when :absent
-                should.nil?
-            else
-                should.nil? || is.sort == should.sort
-            end
-        end
+    #     def insync?(is)
+    #         case is
+    #         when :absent
+    #             should.nil?
+    #         else
+    #             should.nil? || is.sort == should.sort
+    #         end
+    #     end
 
-        validate do |value|
-            if value.match /[^a-zA-Z0-9_-]+/
-                raise 'Tags can only include alphanumeric, underscore, and hyphen characters.'
-            end
-        end
-    end
+    #     validate do |value|
+    #         if value.match /[^a-zA-Z0-9_-]+/
+    #             raise 'Tags can only include alphanumeric, underscore, and hyphen characters.'
+    #         end
+    #     end
+    # end
 
     newproperty(:teams, :array_matching=>:all) do
         desc 'Team names [list of strings].'
@@ -178,18 +178,18 @@ Puppet::Type.newtype(:pingdom_check) do
         # end
     end
 
-    newproperty(:contacts, :array_matching=>:all) do
-        desc 'User names [list of strings].'
+    # newproperty(:contacts, :array_matching=>:all) do
+    #     desc 'User names [list of strings].'
 
-        def insync?(is)
-            case is
-            when :absent
-                should.nil?
-            else
-                should.nil? || is.sort == should.sort
-            end
-        end
-    end
+    #     def insync?(is)
+    #         case is
+    #         when :absent
+    #             should.nil?
+    #         else
+    #             should.nil? || is.sort == should.sort
+    #         end
+    #     end
+    # end
 
     #
     # provider-specific properties

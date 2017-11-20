@@ -41,9 +41,9 @@ class pingdom {
         provider         => 'http',
         host             => $facts['fqdn'],
         url              => '/check',
-        tags             => ['http'],
+        # tags             => ['http'],
         teams            => ['SRE'],
-        contacts         => ['SRE PagerDuty']
+        # contacts         => ['SRE PagerDuty']
     }
 
     # create_resources('pingdom_user', $users, $defaults)

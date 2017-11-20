@@ -1,10 +1,23 @@
 require 'uri'
 require 'digest'
 
+begin # require PuppetX module
+    require File.expand_path( # yes, this is the recommended way :P
+        File.join(
+            File.dirname(__FILE__), '..', '..', '..',
+            'puppet_x', 'pingdom', 'client-2.1.rb'
+        )
+    )
+    has_pingdom_api = true
+rescue LoadError
+    has_pingdom_api = false
+end
+
 Puppet::Type.type(:pingdom_check).provide(:http) do
     has_features :port, :url, :auth, :encryption, :shouldcontain,
                  :shouldnotcontain, :postdata, :requestheaders
     defaultfor :feature => :posix
+    confine :true => has_pingdom_api
 
     def api
         @api ||= begin

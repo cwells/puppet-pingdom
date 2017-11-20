@@ -178,7 +178,7 @@ Puppet::Type.newtype(:pingdom_check) do
         end
     end
 
-    newproperty(:contacts) do
+    newproperty(:contacts, :array_matching=>:all) do
         desc 'User names [list of strings].'
 
         # def insync?(is)
@@ -297,11 +297,11 @@ Puppet::Type.newtype(:pingdom_check) do
     #
     # autorequires
     #
-    # autorequire(:pingdom_user) do
-    #     self[:users]
-    # end
+    autorequire(:pingdom_user) do
+        self[:contacts]
+    end
 
-    # autorequire(:pingdom_team) do
-    #     self[:teams]
-    # end
+    autorequire(:pingdom_team) do
+        self[:teams]
+    end
 end

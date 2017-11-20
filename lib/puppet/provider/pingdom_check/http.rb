@@ -191,7 +191,7 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
         @property_hash[:tags] = value.join ','
     end
 
-    def teams
+    def team_contacts
         # accepts list of ids, returns list of names
         ids = @check.fetch('teams', nil).map { |i| i['id'].to_s }
         team = api.select_teams(ids, search='id') if ids
@@ -202,7 +202,7 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
         end
     end
 
-    def teams=(value)
+    def team_contacts=(value)
         # accepts list of names, returns list of ids
         teams = api.select_teams(value, search='name')
         raise 'Unknown team in list' unless teams.size == value.size

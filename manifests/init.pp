@@ -19,42 +19,42 @@ class pingdom {
     notify { "${account_email}": }
     notify { "${common}": }
 
-    # pingdom_user { 'SRE PagerDuty':
-    #     ensure        => present,
-    #     # credentials_file => '~/.pingdom_credentials',
-    #     account_email => $account_email,
-    #     user_email    => $common['user_email'],
-    #     password      => $common['password'],
-    #     appkey        => $common['appkey'],
-    #     contact_targets => {
-    #         email => 'sre@focusvision.com'
-    #     }
-    # }
+    pingdom_user { 'SRE PagerDuty':
+        ensure        => present,
+        # credentials_file => '~/.pingdom_credentials',
+        account_email => $account_email,
+        user_email    => $common['user_email'],
+        password      => $common['password'],
+        appkey        => $common['appkey'],
+        contact_targets => {
+            email => 'sre@focusvision.com'
+        }
+    }
 
-    # pingdom_team { 'SRE':
-    #     ensure        => present,
-    #     # credentials_file => '~/.pingdom_credentials',
-    #     account_email => $account_email,
-    #     user_email    => $common['user_email'],
-    #     password      => $common['password'],
-    #     appkey        => $common['appkey'],
-    #     users         => ['SRE PagerDuty']
-    # }
+    pingdom_team { 'SRE':
+        ensure        => present,
+        # credentials_file => '~/.pingdom_credentials',
+        account_email => $account_email,
+        user_email    => $common['user_email'],
+        password      => $common['password'],
+        appkey        => $common['appkey'],
+        users         => ['SRE PagerDuty']
+    }
 
-    # pingdom_check { "http://${facts['fqdn']}/check":
-    #     ensure        => present,
-    #     # credentials_file => '~/.pingdom_credentials',
-    #     account_email => $account_email,
-    #     user_email    => $common['user_email'],
-    #     password      => $common['password'],
-    #     appkey        => $common['appkey'],
-    #     provider      => 'http',
-    #     host          => $facts['fqdn'],
-    #     url           => '/check',
-    #     tags          => ['http'],
-    #     teams         => ['SRE'],
-    #     users         => ['SRE PagerDuty']
-    # }
+    pingdom_check { "http://${facts['fqdn']}/check":
+        ensure        => present,
+        # credentials_file => '~/.pingdom_credentials',
+        account_email => $account_email,
+        user_email    => $common['user_email'],
+        password      => $common['password'],
+        appkey        => $common['appkey'],
+        provider      => 'http',
+        host          => $facts['fqdn'],
+        url           => '/check',
+        tags          => ['http'],
+        teams         => ['SRE'],
+        users         => ['SRE PagerDuty']
+    }
 
     # create_resources('pingdom_user', $users, $defaults)
     # create_resources('pingdom_team', $teams, $defaults)

@@ -301,7 +301,7 @@ Puppet::Type.newtype(:pingdom_check) do
         self[:contacts]
     end
 
-    autorequire(:pingdom_team) do
-        self[:teams]
-    end
+    # autorequire(:pingdom_team) do
+    #     self[:teams]
+    # end
 end

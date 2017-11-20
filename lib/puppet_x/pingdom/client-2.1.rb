@@ -104,9 +104,10 @@ module PuppetX
             end
 
             def find_check(name, filter_tags)
+                return nil
                 # returns check or nil
                 check = checks(filter_tags).select { |check| check['name'] == name }
-                return {} if check.empty?
+                return nil if check.empty?
                 check = check.first
                 response = @api.get "#{@@endpoint[:checks]}/#{check['id']}", {
                      :include_teams => true

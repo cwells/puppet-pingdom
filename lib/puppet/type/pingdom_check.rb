@@ -181,14 +181,14 @@ Puppet::Type.newtype(:pingdom_check) do
     newproperty(:contacts, :array_matching=>:all) do
         desc 'User names [list of strings].'
 
-        # def insync?(is)
-        #     case is
-        #     when :absent
-        #         should.nil?
-        #     else
-        #         should.nil? || is.sort == should.sort
-        #     end
-        # end
+        def insync?(is)
+            case is
+            when :absent
+                should.nil?
+            else
+                should.nil? || is.sort == should.sort
+            end
+        end
     end
 
     #

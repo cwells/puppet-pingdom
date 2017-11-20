@@ -222,7 +222,11 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
     end
 
     def contacts=(value)
-
+        # accepts list of names, returns list of ids
+        found = api.select_users(value, search='name')
+        raise 'Unknown user in list' unless found.size == value.size
+        ids = found.map { |u| u['id'] }
+        @property_hash[:userids] = ids.join ','
     end
 
     # def users

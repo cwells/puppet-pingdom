@@ -169,13 +169,12 @@ Puppet::Type.newtype(:pingdom_check) do
         desc 'Team names [list of strings].'
 
         def insync?(is)
-            puts "IS: #{is}, SHOULD: #{should}"
-            # case is
-            # when :absent
-            #     should.nil?
-            # else
-            #     should.nil? || is.sort == should.sort
-            # end
+            case is
+            when :absent
+                should.nil?
+            else
+                should.nil? || is.sort == should.sort
+            end
         end
     end
 

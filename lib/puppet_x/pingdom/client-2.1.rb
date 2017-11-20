@@ -115,8 +115,8 @@ module PuppetX
             end
 
             def create_check(params)
-                response = @api.post @@endpoint[:checks], params
-                response['check']
+                puts "CREATE_CHECK: #{params}"
+                # @api.post @@endpoint[:checks], params
             end
 
             def modify_check(check, params)

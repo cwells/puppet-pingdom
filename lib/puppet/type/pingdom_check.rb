@@ -178,7 +178,7 @@ Puppet::Type.newtype(:pingdom_check) do
         end
     end
 
-    newproperty(:users) do
+    newproperty(:contacts) do
         desc 'User names [list of strings].'
 
         # def insync?(is)

@@ -210,6 +210,14 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
         # @property_hash[:teamids] = ids
     end
 
+    def contacts
+        ""
+    end
+
+    def contacts=(value)
+
+    end
+
     def users
         # retrieves list of ids, returns list of names
         ids = @check.fetch('userids', nil)

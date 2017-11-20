@@ -71,11 +71,10 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
         @property_hash[:name] = @resource[:name]
 
         if @check
-            # api.modify_check @check, @property_hash
+            api.modify_check @check, @property_hash
         else
             @property_hash[:type] = @resource[:provider]
-            puts "PROPERTY HASH: #{@property_hash}"
-            # api.create_check @property_hash
+            api.create_check @property_hash
         end
     end
 

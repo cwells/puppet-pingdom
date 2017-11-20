@@ -191,27 +191,27 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
         @property_hash[:tags] = value.join ','
     end
 
-    def fuckme
-        puts "TEAMS"
-        return []
-        # accepts list of ids, returns list of names
-        # ids = @check.fetch('teams', []).map { |i| i['id'].to_s }
-        # team = api.select_teams(ids, search='id') if ids
-        # if team.respond_to? :map
-        #     team.map { |u| u['name'] }
-        # else
-        #     :absent
-        # end
-    end
+    # def teams
+    #     puts "TEAMS"
+    #     return []
+    #     # accepts list of ids, returns list of names
+    #     # ids = @check.fetch('teams', []).map { |i| i['id'].to_s }
+    #     # team = api.select_teams(ids, search='id') if ids
+    #     # if team.respond_to? :map
+    #     #     team.map { |u| u['name'] }
+    #     # else
+    #     #     :absent
+    #     # end
+    # end
 
-    def fuckme=(value)
-        puts "TEAMS="
-        # accepts list of names, returns list of ids
-        # teams = api.select_teams(value, search='name')
-        # raise 'Unknown team in list' unless teams.size == value.size
-        # ids = teams.map { |u| u['id'] }
-        # # @property_hash[:teamids] = ids
-    end
+    # def teams=(value)
+    #     puts "TEAMS="
+    #     # accepts list of names, returns list of ids
+    #     # teams = api.select_teams(value, search='name')
+    #     # raise 'Unknown team in list' unless teams.size == value.size
+    #     # ids = teams.map { |u| u['id'] }
+    #     # # @property_hash[:teamids] = ids
+    # end
 
     def contacts
         # retrieves list of ids, returns list of names

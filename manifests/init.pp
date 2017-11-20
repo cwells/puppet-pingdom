@@ -47,7 +47,7 @@ class pingdom {
         url           => '/check',
         # tags          => ['http'],
         # contacts      => ['SRE PagerDuty'],
-        fuckme         => ['SRE'],
+        teams         => 'SRE',
         paused        => true,
         log_level     => 'debug'
     }

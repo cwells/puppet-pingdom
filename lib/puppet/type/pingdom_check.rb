@@ -69,45 +69,58 @@ Puppet::Type.newtype(:pingdom_check) do
     #
     # common properties
     #
+    newproperty(:teams, :array_matching=>:all) do
+        desc 'Team names [list of strings].'
+
+        # def insync?(is)
+        #     case is
+        #     when :absent
+        #         should.nil?
+        #     else
+        #         should.nil? || is.sort == should.sort
+        #     end
+        # end
+    end
+
     newproperty(:host) do
         desc 'HTTP hostname or IP to check [string]'
     end
 
-    newproperty(:integrations, :array_matching=>:all) do
-        desc 'Integration names [list of strings].'
+    # newproperty(:integrations, :array_matching=>:all) do
+    #     desc 'Integration names [list of strings].'
 
-        def insync?(is)
-            case is
-            when :absent
-                should.nil?
-            else
-                should.nil? || is.sort == should.sort
-            end
-        end
-    end
+    #     def insync?(is)
+    #         case is
+    #         when :absent
+    #             should.nil?
+    #         else
+    #             should.nil? || is.sort == should.sort
+    #         end
+    #     end
+    # end
 
-    newproperty(:ipv6) do
-        desc %q(Use ipv6 instead of ipv4. If an IP address is provided as `host` this
-                will be overridden by the IP address type [boolean].)
-        newvalues(:true, :false)
+    # newproperty(:ipv6) do
+    #     desc %q(Use ipv6 instead of ipv4. If an IP address is provided as `host` this
+    #             will be overridden by the IP address type [boolean].)
+    #     newvalues(:true, :false)
 
-        def insync?(is)
-            should.nil? or is.to_s == should.to_s
-        end
-    end
+    #     def insync?(is)
+    #         should.nil? or is.to_s == should.to_s
+    #     end
+    # end
 
-    newproperty(:notifyagainevery) do
-        desc 'Notify again every n result [integer]'
-    end
+    # newproperty(:notifyagainevery) do
+    #     desc 'Notify again every n result [integer]'
+    # end
 
-    newproperty(:notifywhenbackup) do
-        desc 'Notify when back up again [boolean]'
-        newvalues(:true, :false)
+    # newproperty(:notifywhenbackup) do
+    #     desc 'Notify when back up again [boolean]'
+    #     newvalues(:true, :false)
 
-        def insync?(is)
-            should.nil? or is.to_s == should.to_s
-        end
-    end
+    #     def insync?(is)
+    #         should.nil? or is.to_s == should.to_s
+    #     end
+    # end
 
     newproperty(:paused) do
         desc 'Paused [boolean]'
@@ -118,33 +131,33 @@ Puppet::Type.newtype(:pingdom_check) do
         end
     end
 
-    newproperty(:probe_filters, :array_matching=>:all) do
-        desc %q(Filters used for probe selections. Overwrites previous filters for check.
-                To remove all filters from a check, use an empty value.
-                Any string of [ 'NA', 'EU', 'APAC'].)
-        newvalues(:NA, :EU, :APAC)
+    # newproperty(:probe_filters, :array_matching=>:all) do
+    #     desc %q(Filters used for probe selections. Overwrites previous filters for check.
+    #             To remove all filters from a check, use an empty value.
+    #             Any string of [ 'NA', 'EU', 'APAC'].)
+    #     newvalues(:NA, :EU, :APAC)
 
-        def insync?(is)
-            if is == :absent
-                return should.nil?
-            end
-            should.nil? or is.sort == should.map { |v| 'region: ' + v }
-        end
-    end
+    #     def insync?(is)
+    #         if is == :absent
+    #             return should.nil?
+    #         end
+    #         should.nil? or is.sort == should.map { |v| 'region: ' + v }
+    #     end
+    # end
 
-    newproperty(:resolution) do
-        desc 'Check resolution [integer (1, 5, 15, 30, 60)].'
-        newvalues(1, 5, 15, 30, 60)
+    # newproperty(:resolution) do
+    #     desc 'Check resolution [integer (1, 5, 15, 30, 60)].'
+    #     newvalues(1, 5, 15, 30, 60)
 
-        def insync?(is)
-            should.nil? || is.to_s == should.to_s
-        end
-    end
+    #     def insync?(is)
+    #         should.nil? || is.to_s == should.to_s
+    #     end
+    # end
 
-    newproperty(:responsetime_threshold) do
-        desc %q(Triggers a down alert if the response time exceeds
-                threshold specified in ms [integer])
-    end
+    # newproperty(:responsetime_threshold) do
+    #     desc %q(Triggers a down alert if the response time exceeds
+    #             threshold specified in ms [integer])
+    # end
 
     # newproperty(:tags, :array_matching=>:all) do
     #     desc 'Check tags [list of strings].'
@@ -165,18 +178,7 @@ Puppet::Type.newtype(:pingdom_check) do
     #     end
     # end
 
-    newproperty(:teams, :array_matching=>:all) do
-        desc 'Team names [list of strings].'
 
-        # def insync?(is)
-        #     case is
-        #     when :absent
-        #         should.nil?
-        #     else
-        #         should.nil? || is.sort == should.sort
-        #     end
-        # end
-    end
 
     # newproperty(:contacts, :array_matching=>:all) do
     #     desc 'User names [list of strings].'

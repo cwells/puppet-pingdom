@@ -165,8 +165,8 @@ Puppet::Type.newtype(:pingdom_check) do
         end
     end
 
-    newproperty(:team_contacts, :array_matching=>:all) do
-        desc 'Team names to contact [list of strings].'
+    newproperty(:teams, :array_matching=>:all) do
+        desc 'Team names [list of strings].'
 
         def insync?(is)
             case is
@@ -302,6 +302,6 @@ Puppet::Type.newtype(:pingdom_check) do
     end
 
     autorequire(:pingdom_team) do
-        self[:team_contacts]
+        self[:teams]
     end
 end

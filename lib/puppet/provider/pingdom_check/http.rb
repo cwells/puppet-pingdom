@@ -183,14 +183,11 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
     def tags
         return []
         usertags = @check.fetch('tags', []).map { |tag| tag['name'] if tag['type'] == 'u' }
-        puts "@AUTOTAG #{@autotag}"
         usertags.delete @autotag
-        puts "USERTAGS: #{usertags}"
         usertags
     end
 
     def tags=(value)
-        puts "tags= #{@property_hash[:tags]} #{value}"
         value << @autotag
         @property_hash[:tags] = value.join ','
     end
@@ -230,7 +227,6 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
         found = api.select_users(value, search='name')
         raise 'Unknown user in list' unless found.size == value.size
         ids = found.map { |u| u['id'] }
-        puts "IDS: #{ids}"
         @property_hash[:userids] = ids.join ','
     end
 

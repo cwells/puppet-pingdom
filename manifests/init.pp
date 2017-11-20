@@ -1,20 +1,20 @@
 class pingdom {
-    $account_email = lookup('pingdom::account_email', String, 'first', false)
+    # $account_email = lookup('pingdom::account_email', String, 'first', false)
 
-    $common = {
-        'user_email' => lookup('pingdom::user_email', String, 'first'),
-        'password'   => lookup('pingdom::password', String, 'first'),
-        'appkey'     => lookup('pingdom::appkey', String, 'first')
-    }
+    # $common = {
+    #     'user_email' => lookup('pingdom::user_email', String, 'first'),
+    #     'password'   => lookup('pingdom::password', String, 'first'),
+    #     'appkey'     => lookup('pingdom::appkey', String, 'first')
+    # }
 
-    $defaults = $account_email ? {
-        default => merge($common, {'account_email' => $account_email}),
-        false   => $common
-    }
+    # $defaults = $account_email ? {
+    #     default => merge($common, {'account_email' => $account_email}),
+    #     false   => $common
+    # }
 
-    $users = lookup('pingdom::users', Hash, 'hash', {})
-    $teams = lookup('pingdom::teams', Hash, 'hash', {})
-    $checks = lookup('pingdom::checks', Hash, 'hash', {})
+    # $users = lookup('pingdom::users', Hash, 'hash', {})
+    # $teams = lookup('pingdom::teams', Hash, 'hash', {})
+    # $checks = lookup('pingdom::checks', Hash, 'hash', {})
 
     # pingdom_user { 'SRE PagerDuty':
     #     ensure        => present,
@@ -38,6 +38,10 @@ class pingdom {
 
     pingdom_check { "http://${facts['fqdn']}/check":
         ensure           => present,
+        account_email => $account_email,
+        user_email    => $common['user_email'],
+        password      => $common['password'],
+        appkey        => $common['appkey'],
         provider         => 'http',
         host             => $facts['fqdn'],
         url              => '/check',

@@ -31,7 +31,7 @@ Pingdom_check {
     notifyagainevery         => 5,
     notifywhenbackup         => false,
     responsetime_threshold   => 10,
-    contacts                    => [ 'SRE PagerDuty' ]
+    # users                    => [ 'SRE PagerDuty' ]
 }
 
 pingdom_user { 'SRE PagerDuty':
@@ -65,8 +65,8 @@ pingdom_check { "http://${facts['fqdn']}/check":
     auth             => "admin:password",
     encryption       => false,
     tags             => ['http'],
-    teams            => ['SRE'],
-    contacts            => ['SRE PagerDuty']
+    teams            => ['SRE']
+    # users            => ['SRE PagerDuty']
 }
 
 # pingdom_check { "httpcustom://${facts['fqdn']}/status/pingdom.xml":

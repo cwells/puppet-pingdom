@@ -180,57 +180,50 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
         @property_hash[:probe_filters] = newvalue
     end
 
-    # def tags
-    #     usertags = @check.fetch('tags', []).map { |tag| tag['name'] if tag['type'] == 'u' }
-    #     usertags.delete @autotag
-    #     usertags
-    # end
+    def tags
+        usertags = @check.fetch('tags', []).map { |tag| tag['name'] if tag['type'] == 'u' }
+        usertags.delete @autotag
+        usertags
+    end
 
-    # def tags=(value)
-    #     value << @autotag
-    #     @property_hash[:tags] = value.join ','
-    # end
+    def tags=(value)
+        value << @autotag
+        @property_hash[:tags] = value.join ','
+    end
 
     def teams
-        puts "TEAMS"
-        return []
         # retrieves list of ids, returns list of names
-        # ids = @check.fetch('teams', []).map { |i| i['id'].to_s }
-        # team = api.select_teams(ids, search='id') if ids
-        # if team.respond_to? :map
-        #     team.map { |u| u['name'] }
-        # else
-        #     :absent
-        # end
+        ids = @check.fetch('teams', []).map { |i| i['id'].to_s }
+        team = api.select_teams(ids, search='id') if ids
+        team.map { |u| u['name'] }
     end
 
     def teams=(value)
-        puts "TEAMS=#{value}"
         # accepts list of names, returns list of ids
-        # teams = api.select_teams(value, search='name')
-        # raise 'Unknown team in list' unless teams.size == value.size
-        # ids = teams.map { |u| u['id'] }
-        # # @property_hash[:teamids] = ids
+        teams = api.select_teams(value, search='name')
+        raise 'Unknown team in list' unless teams.size == value.size
+        ids = teams.map { |u| u['id'] }
+        @property_hash[:teamids] = ids
     end
 
-    # def contacts
-    #     # retrieves list of ids, returns list of names
-    #     ids = @check.fetch('userids', nil)
-    #     user = api.select_users(ids, search='id') if ids
-    #     if user.respond_to? :map
-    #         user.map { |u| u['name'] }
-    #     else
-    #         :absent
-    #     end
-    # end
+    def users
+        # retrieves list of ids, returns list of names
+        ids = @check.fetch('userids', nil)
+        user = api.select_users(ids, search='id') if ids
+        if user.respond_to? :map
+            user.map { |u| u['name'] }
+        else
+            :absent
+        end
+    end
 
-    # def contacts=(value)
-    #     # accepts list of names, returns list of ids
-    #     found = api.select_users(value, search='name')
-    #     raise 'Unknown user in list' unless found.size == value.size
-    #     ids = found.map { |u| u['id'] }
-    #     @property_hash[:userids] = ids.join ','
-    # end
+    def users=(value)
+        # accepts list of names, returns list of ids
+        found = api.select_users(value, search='name')
+        raise 'Unknown user in list' unless found.size == value.size
+        ids = found.map { |u| u['id'] }
+        @property_hash[:userids] = ids.join ','
+    end
 
     # def users
     #     # retrieves list of ids, returns list of names

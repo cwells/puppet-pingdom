@@ -43,7 +43,7 @@ class pingdom {
         url              => '/check',
         # tags             => ['http'],
         teams            => ['SRE'],
-        # contacts         => ['SRE PagerDuty']
+        # users         => ['SRE PagerDuty']
     }
 
     # create_resources('pingdom_user', $users, $defaults)

@@ -222,6 +222,7 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
     end
 
     def users=(value)
+        return
         # accepts list of names, returns list of ids
         found = api.select_users(value, search='name')
         raise 'Unknown user in list' unless found.size == value.size

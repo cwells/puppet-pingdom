@@ -104,7 +104,6 @@ module PuppetX
             end
 
             def find_check(name, filter_tags)
-                return nil
                 # returns check or nil
                 check = checks(filter_tags).select { |check| check['name'] == name }
                 return nil if check.empty?
@@ -117,7 +116,7 @@ module PuppetX
 
             def create_check(params)
                 puts "CREATE_CHECK: #{params}"
-                # @api.post @@endpoint[:checks], params
+                @api.post @@endpoint[:checks], params
             end
 
             def modify_check(check, params)

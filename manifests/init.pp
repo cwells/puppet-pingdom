@@ -46,7 +46,7 @@ class pingdom {
         host          => "${facts['fqdn']}",
         url           => '/check',
         tags          => ['http'],
-        users         => [],
+        # users         => [],
         # teams         => ['SRE'],
         paused        => true
     }

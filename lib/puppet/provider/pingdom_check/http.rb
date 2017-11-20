@@ -193,7 +193,7 @@ Puppet::Type.type(:pingdom_check).provide(:http) do
 
     def teams
         # accepts list of ids, returns list of names
-        ids = @check.fetch('teams', nil).map { |i| i['id'].to_s }
+        ids = @check.fetch('teams', []).map { |i| i['id'].to_s }
         team = api.select_teams(ids, search='id') if ids
         if team.respond_to? :map
             team.map { |u| u['name'] }

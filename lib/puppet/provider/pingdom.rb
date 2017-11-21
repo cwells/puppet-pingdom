@@ -1,17 +1,8 @@
 class Puppet::Provider::Pingdom < Puppet::Provider
-    begin # require PuppetX module
-        require File.expand_path(
-            File.join(
-                File.dirname(__FILE__), '..', '..',
-                'puppet_x', 'pingdom', 'client-2.1.rb'
-            )
-        )
-        has_pingdom_api = true
-    rescue LoadError
-        has_pingdom_api = false
-    end
+    require File.expand_path(File.join(File.dirname(__FILE__),
+        '..', '..', 'puppet_x', 'pingdom', 'client-2.1.rb'
+    ))
 
-    confine :true => has_pingdom_api
     initvars
 
     def api
@@ -56,7 +47,7 @@ class Puppet::Provider::Pingdom < Puppet::Provider
 
             if !method_defined?(prop)
                 define_method(prop) do
-                    self.send(resource).fetch(prop.to_s, :absent)
+                    instance_variable_get(resource).fetch(prop.to_s, :absent)
                 end
             end
 

@@ -13,7 +13,6 @@ Puppet::Type.type(:pingdom_settings).provide(:settings, :parent => Puppet::Provi
     end
 
     def create
-        @settings ||= api.settings
     end
 
     def flush

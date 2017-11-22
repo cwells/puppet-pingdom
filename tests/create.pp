@@ -85,7 +85,7 @@ pingdom_check { "httpcustom://${facts['fqdn']}/status/pingdom.xml":
     ],
     port             => 80,
     encryption       => true,
-    tags             => ['http']
+    tags             => ['http', 'custom']
 }
 
 pingdom_check { "dns://${facts['fqdn']}":

@@ -62,8 +62,8 @@ Puppet::Type.newtype(:pingdom_user) do
                 i = is.select { |contact| contact.fetch(type, nil) == s[type] }
                 return false if i.empty?
                 i = i.first
-                s['severity'] ||= i['severity']
-                return false if s['severity'] != i['severity']
+                s['severity'] ||= i['severitylevel']
+                return false if s['severity'] != i['severitylevel']
                 return false if (type == 'number' && s['countrycode'] != i['countrycode'])
             end
 
